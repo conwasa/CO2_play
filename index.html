@@ -8,9 +8,9 @@
  <meta name="HandheldFriendly" content="True">
  <meta name="MobileOptimized" content="320">
 
- <title>Google Graph and CSV</title>
+ <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
  <meta name="description" content="test">
-
+<p>hello1</p>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -18,11 +18,11 @@
 <script type="text/javascript"> // load the visualisation API
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
 </script>
-
+p>hello2</p>
 <script type="text/javascript">
 function drawVisualization() {
 //   $.get( asasas   "ifr.csv", function(csvString) {
-   $.get("https://console.cloud.google.com/storage/browser/uk_bn3_co2?prefix=dec2.csv", function(csvString) {
+   $.get("dec2.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
 
@@ -42,7 +42,9 @@ function drawVisualization() {
       crt_ertdlyYY.draw();
    });
 }
+p>hello3</p>
 google.setOnLoadCallback(drawVisualization)
+p>hello4</p>
 </script>
 
 <div id="crt_ertdlyYY"></div>
