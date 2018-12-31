@@ -42,10 +42,11 @@
 
  <!-- end script for gauge -->
  
+ <!--
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
+-->
  
 <script type="text/javascript"> // load the visualisation API
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
@@ -75,7 +76,7 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 1
+version 2
 <div id="gauge_div" style="width:280px; height: 140px;"></div>
   <input type="button" value="Go Faster" onclick="changeTemp(1)" />
   <input type="button" value="Slow down" onclick="changeTemp(-1)" />
