@@ -10,46 +10,15 @@
 
  <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
  <meta name="description" content="test">
+<p>hello1</p>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
- // start script for gauge
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    google.charts.load('current', {'packages':['gauge']});
-    google.charts.setOnLoadCallback(drawGauge);
-
-    var gaugeOptions = {min: 0, max: 280, yellowFrom: 200, yellowTo: 250,
-      redFrom: 250, redTo: 280, minorTicks: 5};
-    var gauge;
-
-    function drawGauge() {
-      gaugeData = new google.visualization.DataTable();
-      gaugeData.addColumn('number', 'Engine');
-      gaugeData.addColumn('number', 'Torpedo');
-      gaugeData.addRows(2);
-      gaugeData.setCell(0, 0, 120);
-      gaugeData.setCell(0, 1, 80);
-
-      gauge = new google.visualization.Gauge(document.getElementById('gauge_div'));
-      gauge.draw(gaugeData, gaugeOptions);
-    }
-
-    function changeTemp(dir) {
-      gaugeData.setValue(0, 0, gaugeData.getValue(0, 0) + dir * 25);
-      gaugeData.setValue(0, 1, gaugeData.getValue(0, 1) + dir * 20);
-      gauge.draw(gaugeData, gaugeOptions);
-    }
-  </script>
-
- // end script for gauge
- 
- 
- 
 <script type="text/javascript"> // load the visualisation API
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
 </script>
+<p>hello2</p>
 <script type="text/javascript">
 function drawVisualization() {
 //   $.get( asasas   "ifr.csv", function(csvString) {
@@ -75,10 +44,6 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-
-<div id="gauge_div" style="width:280px; height: 140px;"></div>
-  <input type="button" value="Go Faster" onclick="changeTemp(1)" />
-  <input type="button" value="Slow down" onclick="changeTemp(-1)" />
-
+p>hello4</p>
 
 <div id="crt_ertdlyYY"></div>
