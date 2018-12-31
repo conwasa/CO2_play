@@ -23,7 +23,7 @@
 
     function drawGauge() {
       gaugeData = new google.visualization.DataTable();
-      gaugeData.addColumn('number', 'Engine');
+      gaugeData.addColumn('number', 'outdoor CO\u2082 ppm');
       gaugeData.addColumn('number', 'Torpedo');
       gaugeData.addRows(2);
       gaugeData.setCell(0, 0, 120);
@@ -68,6 +68,7 @@ function drawVisualization() {
          options:{
             width: 450, height: 160,
             title: 'Real-time outdoor CO\u2082 levels (01/12/2018 to date)',
+			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
       });
@@ -76,7 +77,7 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 2
+version 3
 <div id="gauge_div" style="width:280px; height: 140px;"></div>
   <input type="button" value="Go Faster" onclick="changeTemp(1)" />
   <input type="button" value="Slow down" onclick="changeTemp(-1)" />
