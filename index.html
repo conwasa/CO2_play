@@ -17,8 +17,8 @@
     google.charts.load('current', {'packages':['gauge']});
     google.charts.setOnLoadCallback(drawGauge);
 
-    var gaugeOptions = {min: 300, max: 600, yellowFrom: 400, yellowTo: 410,
-      redFrom: 410, redTo: 600, minorTicks: 5};
+    var gaugeOptions = {min: 0, max: 800, yellowFrom: 600, yellowTo: 700,
+      redFrom: 700, redTo: 800, minorTicks: 5};
     var gauge;
 
     function drawGauge() {
@@ -77,7 +77,7 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 6
+version 7
 <div id="gauge_div" style="width:280px; height: 140px;"></div>
   <input type="button" value="Go Faster" onclick="changeTemp(1)" />
   <input type="button" value="Slow down" onclick="changeTemp(-1)" />
