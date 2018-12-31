@@ -21,7 +21,6 @@
 </script>
 <script type="text/javascript">
 function drawVisualization() {
-//   $.get( asasas   "ifr.csv", function(csvString) {
    $.get("dec2.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
@@ -29,9 +28,9 @@ function drawVisualization() {
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
       // CAPACITY - En-route ATFM delay - YY - CHART
-      var crt_ertdlyYY = new google.visualization.ChartWrapper({
+      var chart_1 = new google.visualization.ChartWrapper({
          chartType: 'LineChart',
-         containerId: 'crt_ertdlyYY',
+         containerId: 'chart_1',
          dataTable: data,
          options:{
             width: 450, height: 160,
@@ -40,12 +39,36 @@ function drawVisualization() {
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
       });
-      crt_ertdlyYY.draw();
+      chart_1.draw();
    });
+
+   $.get("dec2.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      // CAPACITY - En-route ATFM delay - YY - CHART
+      var chart_2 = new google.visualization.ChartWrapper({
+         chartType: 'LineChart',
+         containerId: 'chart_2',
+         dataTable: data,
+         options:{
+            width: 350, height: 160,
+            title: '2 Real-time outdoor CO\u2082 levels (01/12/2018 to date)',
+			legend: 'left',
+            titleTextStyle : {color: 'grey', fontSize: 11},
+         }
+      });
+      chart_2.draw();
+   });
+
+   
+   
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 8
-<div id="crt_ertdlyYY"></div>
+version 9
+<div id="chart_1"></div>
 hello
-<div id="crt_ertdlyYY"></div>
+<div id="chart_2"></div>
