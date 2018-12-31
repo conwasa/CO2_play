@@ -23,10 +23,10 @@
 
     function drawGauge() {
       gaugeData = new google.visualization.DataTable();
-      gaugeData.addColumn('number', 'outdoor CO\u2082 ppm');
+      gaugeData.addColumn('number', 'CO\u2082 ppm');
       gaugeData.addColumn('number', 'Torpedo');
       gaugeData.addRows(2);
-      gaugeData.setCell(0, 0, 120);
+      gaugeData.setCell(300, 0, 600);
       gaugeData.setCell(0, 1, 80);
 
       gauge = new google.visualization.Gauge(document.getElementById('gauge_div'));
@@ -77,7 +77,7 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 3
+version 4
 <div id="gauge_div" style="width:280px; height: 140px;"></div>
   <input type="button" value="Go Faster" onclick="changeTemp(1)" />
   <input type="button" value="Slow down" onclick="changeTemp(-1)" />
