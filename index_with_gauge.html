@@ -17,8 +17,8 @@
     google.charts.load('current', {'packages':['gauge']});
     google.charts.setOnLoadCallback(drawGauge);
 
-    var gaugeOptions = {min: 0, max: 800, yellowFrom: 600, yellowTo: 700,
-      redFrom: 700, redTo: 800, minorTicks: 5};
+    var gaugeOptions = {min: 0, max: 800, yellowFrom: 200, yellowTo: 300,
+      redFrom: 000, redTo: 200, minorTicks: 5};
     var gauge;
 
     function drawGauge() {
@@ -40,9 +40,13 @@
     }
   </script>
 
+ <!-- end script for gauge -->
+ 
+ <!--
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+-->
  
 <script type="text/javascript"> // load the visualisation API
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
@@ -74,5 +78,9 @@ function drawVisualization() {
 google.setOnLoadCallback(drawVisualization)
 </script>
 version 8
-<div id="crt_ertdlyYY"></div>
+<div id="gauge_div" style="width:280px; height: 140px;"></div>
+  <input type="button" value="Go Faster" onclick="changeTemp(1)" />
+  <input type="button" value="Slow down" onclick="changeTemp(-1)" />
+
+
 <div id="crt_ertdlyYY"></div>
