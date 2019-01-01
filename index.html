@@ -36,7 +36,7 @@ function drawVisualization() {
          dataTable: data,
          options:{
             width: 450, height: 160,
-            title: "Today's outdoor CO\u2082 levels [ppm] UK postcode BN3 7 01/01/2019",
+            title: "Today's outdoor CO\u2082 levels [ppm] UK postcode BN3 7",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -55,13 +55,33 @@ function drawVisualization() {
          dataTable: data,
          options:{
             width: 450, height: 160,
-            title: "Yesterday's outdoor CO\u2082 levels [ppm] UK postcode BN3 7 31/12/2018",
+            title: "Yesterday's outdoor CO\u2082 levels [ppm] UK postcode BN3 7",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
       });
       chart_3.draw();
    });
+   $.get("last_weeks_readings.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      var chart_4 = new google.visualization.ChartWrapper({
+         chartType: 'LineChart',
+         containerId: 'chart_4',
+         dataTable: data,
+         options:{
+            width: 450, height: 160,
+            title: "last weeks' Real-time outdoor CO\u2082 levels",
+			legend: 'left',
+            titleTextStyle : {color: 'grey', fontSize: 11},
+         }
+      });
+      chart_4.draw();
+   });
+
+
 
 
    $.get("dec2.csv", function(csvString) {
@@ -74,8 +94,8 @@ function drawVisualization() {
          containerId: 'chart_2',
          dataTable: data,
          options:{
-            width: 350, height: 160,
-            title: '2 Real-time outdoor CO\u2082 levels (01/12/2018 to date)',
+            width: 450, height: 160,
+            title: 'Real-time outdoor CO\u2082 levels (01/12/2018 to date)',
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -84,12 +104,58 @@ function drawVisualization() {
    });
 
 
+   $.get("last_months_readings.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      var chart_5 = new google.visualization.ChartWrapper({
+         chartType: 'LineChart',
+         containerId: 'chart_5',
+         dataTable: data,
+         options:{
+            width: 450, height: 160,
+            title: "last months' Real-time outdoor CO\u2082 levels",
+			legend: 'left',
+            titleTextStyle : {color: 'grey', fontSize: 11},
+         }
+      });
+      chart_5.draw();
+   });
+
+
+   $.get("all_historic_readings.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      var chart_6 = new google.visualization.ChartWrapper({
+         chartType: 'LineChart',
+         containerId: 'chart_6',
+         dataTable: data,
+         options:{
+            width: 450, height: 160,
+            title: "all historic real-time outdoor CO\u2082 levels",
+			legend: 'left',
+            titleTextStyle : {color: 'grey', fontSize: 11},
+         }
+      });
+      chart_6.draw();
+   });
+
+
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 14
+version 15
 <div id="chart_1"></div>
 
 <div id="chart_3"></div>
 
 <div id="chart_2"></div>
+
+<div id="chart_4"></div>
+
+<div id="chart_5"></div>
+
+<div id="chart_6"></div>

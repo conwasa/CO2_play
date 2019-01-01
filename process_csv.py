@@ -65,7 +65,12 @@ def get_subset(list, start_date, end_date, y_value):
 	for i in range (0, len(list), 1):
 		row = []
 		if start_date <= list[i][0] <= end_date:
-			row.append(list[i][y_value])  # time 
+			if y_value == 'day_of_week':
+				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%a"))
+			elif y_value == 'day_of_month':
+				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%d"))
+			else:
+				row.append(list[i][y_value])  # time 
 			row.append(list[i][2])  # time 
 			returned_list.append(row)	
 	return(returned_list)
@@ -76,8 +81,6 @@ def write_subset(list, filename, header):
 		output_writer.writerow(header)
 		for i in range (0, len(list), 1):
 			output_writer.writerow(list[i])
-			print (list[i])	
-	print (header)
 
 
 			
@@ -109,12 +112,36 @@ yesterdays_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=1
 yesterdays_readings=get_subset(list1, yesterdays_date, yesterdays_date, 1)
 write_subset(yesterdays_readings, 'yesterdays_readings.csv', ['time','co2_ppm'])
 
+num_days_since_monday=((datetime.date.today().weekday()))
+num_days_to_sunday = 6 - num_days_since_monday
+last_monday_week=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=1) - timedelta(days=num_days_since_monday))
+last_sunday=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=1) + timedelta(days=num_days_to_sunday))
+last_weeks_readings=get_subset(list1, last_monday_week, last_sunday, 'day_of_week')
+write_subset(last_weeks_readings, 'last_weeks_readings.csv', ['day','co2_ppm'])
 
-for i in range (0, len(todays_readings), 1):
-	print (todays_readings[i])
+day_of_month=((datetime.date.today().weekday()))
+num_days_to_sunday = 6 - num_days_since_monday
+last_monday_week=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=1) - timedelta(days=num_days_since_monday))
+last_sunday=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=1) + timedelta(days=num_days_to_sunday))
+last_weeks_readings=get_subset(list1, last_monday_week, last_sunday, 'day_of_week')
+write_subset(last_weeks_readings, 'last_weeks_readings.csv', ['day','co2_ppm'])
+
+end_of_last_month=datetime.date.today().replace(day=1) - datetime.timedelta (days = 1)
+start_of_last_month=end_of_last_month.replace(day=1)
+last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
+write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm'])
+
+all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 0)
+write_subset(all_historic_readings, 'all_historic_readings.csv', ['date','co2_ppm'])
+
+
+# classmethod date.fromisoformat(date_string)¶
+
+#for i in range (0, len(last_weeks_readings), 1):
+#	print (last_weeks_readings[i])
 
 	
-print ('yesterdays_date=' + yesterdays_date)
+print ('last_monday_week=' + last_monday_week)
 
 	
 print ("Current year: ", datetime.date.today().strftime("%Y"))
@@ -124,4 +151,5 @@ print ("Weekday of the week: ", datetime.date.today().strftime("%w"))
 print ("Day of year: ", datetime.date.today().strftime("%j"))
 print ("Day of the month : ", datetime.date.today().strftime("%d"))
 print ("Day of week: ", datetime.date.today().strftime("%A"))
+print ("Day of week: ", datetime.date.today().strftime("%a"))
 print ("ISO: ",datetime.date.isoformat(datetime.date.today())) 
