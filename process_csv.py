@@ -60,12 +60,12 @@ def read_csv_file():
 			
 	return(csv_data_list)
 
-def get_subset(list, start_date, end_date):
+def get_subset(list, start_date, end_date, y_value):
 	returned_list = []
 	for i in range (0, len(list), 1):
 		row = []
 		if start_date <= list[i][0] <= end_date:
-			row.append(list[i][1])  # time 
+			row.append(list[i][y_value])  # time 
 			row.append(list[i][2])  # time 
 			returned_list.append(row)	
 	return(returned_list)
@@ -102,15 +102,21 @@ list1=read_csv_file()
 list1.sort(key=lambda x: x[0:1])
 
 todays_date=datetime.date.isoformat(datetime.date.today())
-
-todays_readings=get_subset(list1, todays_date, todays_date)
+todays_readings=get_subset(list1, todays_date, todays_date, 1)
 write_subset(todays_readings, 'todays_readings.csv', ['time','co2_ppm'])
 
-
+yesterdays_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=1))
+yesterdays_readings=get_subset(list1, yesterdays_date, yesterdays_date, 1)
+write_subset(yesterdays_readings, 'yesterdays_readings.csv', ['time','co2_ppm'])
 
 
 for i in range (0, len(todays_readings), 1):
 	print (todays_readings[i])
+
+	
+print ('yesterdays_date=' + yesterdays_date)
+
+	
 print ("Current year: ", datetime.date.today().strftime("%Y"))
 print ("Month of year: ", datetime.date.today().strftime("%m"))
 print ("Week number of the year: ", datetime.date.today().strftime("%W"))
