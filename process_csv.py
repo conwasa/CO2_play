@@ -70,9 +70,10 @@ def get_subset(list, start_date, end_date):
 			returned_list.append(row)	
 	return(returned_list)
 
-def write_subset(list, filename):
-	with open(filename, mode='w') as output_file:
+def write_subset(list, filename, header):
+	with open(filename, mode='w',newline='') as output_file:    # newline = '' for Windows as otherwise it outputs an extra CR
 		output_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+		output_writer.writerow(header)
 		for i in range (0, len(list), 1):
 			output_writer.writerow(list[i])
 #			print (list[i])	
@@ -95,17 +96,13 @@ def write_json(time_offset, station_jingles_list, ix_2_start_point, length_of_au
 # MAIN SECTION
 
 list1=read_csv_file()
-
 #sort into date and time
 list1.sort(key=lambda x: x[0:1])
 
 todays_date=datetime.date.isoformat(datetime.date.today())
 todays_readings=get_subset(list1, todays_date, todays_date)
+write_subset(todays_readings, 'todays_readings.csv', 'time,co2_ppm')
 
-
-#print (todays_readings)
-
-write_subset(todays_readings, 'todays_readings.csv')
 
 
 
