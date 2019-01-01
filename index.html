@@ -42,7 +42,7 @@ function drawVisualization() {
       chart_1.draw();
    });
 
-   $.get("todays_readings.csv", function(csvString) {
+   $.get("dec2.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
 
