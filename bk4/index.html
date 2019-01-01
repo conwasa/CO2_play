@@ -20,16 +20,14 @@
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
 </script>
 <script type="text/javascript">
-function drawpage() {
-
-}
-
 function drawVisualization() {
    $.get("todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
+      // CAPACITY - En-route ATFM delay - YY - CHART
       var chart_1 = new google.visualization.ChartWrapper({
          chartType: 'LineChart',
          containerId: 'chart_1',
@@ -47,11 +45,13 @@ function drawVisualization() {
    $.get("yesterdays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
+      // CAPACITY - En-route ATFM delay - YY - CHART
       var chart_3 = new google.visualization.ChartWrapper({
          chartType: 'LineChart',
-         containerId: 'chart_3',
+         containerId: 'chart_1',
          dataTable: data,
          options:{
             width: 450, height: 160,
@@ -67,8 +67,10 @@ function drawVisualization() {
    $.get("dec2.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
+      // CAPACITY - En-route ATFM delay - YY - CHART
       var chart_2 = new google.visualization.ChartWrapper({
          chartType: 'LineChart',
          containerId: 'chart_2',
@@ -83,7 +85,8 @@ function drawVisualization() {
       chart_2.draw();
    });
 
-
+<!-- BN43 6BN --->   
+   
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
