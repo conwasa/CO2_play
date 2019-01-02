@@ -69,6 +69,8 @@ def get_subset(list, start_date, end_date, y_value):
 				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%a"))
 			elif y_value == 'day_of_month':
 				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%d"))
+			elif y_value == 'month':
+				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%b"))
 			else:
 				row.append(list[i][y_value])  # time 
 			row.append(list[i][2])  # time 
@@ -131,8 +133,8 @@ start_of_last_month=end_of_last_month.replace(day=1)
 last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
 write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm'])
 
-all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 0)
-write_subset(all_historic_readings, 'all_historic_readings.csv', ['date','co2_ppm'])
+all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 'month')
+write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_ppm'])
 
 
 # classmethod date.fromisoformat(date_string)¶

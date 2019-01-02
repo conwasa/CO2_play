@@ -12,3 +12,4 @@ type C:\user\SenselifeCamSoftware\2019\09\*.csv |find "20" >> all_readings.csv |
 type C:\user\SenselifeCamSoftware\2019\10\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\11\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\12\*.csv |find "20" >> all_readings.csv |find "20"
+python process_csv.py
