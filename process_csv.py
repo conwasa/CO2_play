@@ -86,19 +86,39 @@ def write_subset(list, filename, header):
 
 
 			
-def write_json(time_offset, station_jingles_list, ix_2_start_point, length_of_audio):
-	""" outputs:
-	"""
-	timing_data_dict = {	'time_offset'				: time_offset,
-							'station_jingles_list'		: station_jingles_list,
-							'debug_ix_2_start_point' 	: ix_2_start_point,
-							'length_of_audio'			: length_of_audio
-							}
-#	print dict
-#	print publishable_transcript_dict
-#	print ('>>>>>>>>>' + public_json_output_url + '/timing_data_'  + stream_name + '_' + filename_timestamp + '.json')
-	with open(public_json_output_url + '/timing_data_'  + stream_name + '_' + filename_timestamp + '.json', 'w') as write_file:
-		json.dump(timing_data_dict, write_file, indent=2) 
+def write_stats(list1):
+	lowest_reading 	= '999'
+	latest_reading 	= '000'
+	highest_reading = '000'
+	last_record_datetime = datetime.datetime.fromisoformat('1970-01-01 00:00')
+	good_delta = datetime.datetime.fromisoformat('1970-01-01 00:11') - datetime.datetime.fromisoformat('1970-01-01 00:00')
+	
+	for i in range (0, len(list1), 1):
+		record_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
+		if  list1[i][2] < lowest_reading:   # these are strings not numbers
+			lowest_reading = list1[i][2]
+			lowest_reading_datetime = record_datetime
+		if  list1[i][2] > highest_reading:   # these are strings not numbers
+			highest_reading = list1[i][2]
+			highest_reading_datetime = record_datetime
+		delta = record_datetime - last_record_datetime 
+		if delta > good_delta:
+			outage_duration = str(delta)
+			last_outage_datetime = record_datetime
+		last_record_datetime = record_datetime
+		latest_reading = list1[i][2]
+		latest_reading_datetime = record_datetime
+
+	stats_list = []
+	stats_list.append(['latest reading [ppm] ', latest_reading, str(latest_reading_datetime) ])
+	stats_list.append(['lowest reading [ppm] ', lowest_reading, str(lowest_reading_datetime) ])
+	stats_list.append(['highest reading [ppm]', highest_reading, str(highest_reading_datetime) ])
+	stats_list.append(['last outage', str(highest_reading_datetime) , 'outage duration', outage_duration ])
+
+	stats = {'stats_list': stats_list}
+	print (stats)
+	with open('stats.json', 'w') as write_file:
+		json.dump(stats_list, write_file, indent=2) 
 
 # MAIN SECTION
 
@@ -136,16 +156,9 @@ write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm']
 all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 'month')
 write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_ppm'])
 
+write_stats(list1)
 
-# classmethod date.fromisoformat(date_string)¶
 
-#for i in range (0, len(last_weeks_readings), 1):
-#	print (last_weeks_readings[i])
-
-	
-print ('last_monday_week=' + last_monday_week)
-
-	
 print ("Current year: ", datetime.date.today().strftime("%Y"))
 print ("Month of year: ", datetime.date.today().strftime("%m"))
 print ("Week number of the year: ", datetime.date.today().strftime("%W"))
