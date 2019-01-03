@@ -89,7 +89,7 @@ def write_outage_csv(list1):
 	good_delta = datetime.datetime.fromisoformat('1970-01-01 00:11') - datetime.datetime.fromisoformat('1970-01-01 00:00')
 	with open('outages.csv', mode='w',newline='') as output_file:    # newline = '' for Windows as otherwise it outputs an extra CR
 		output_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-		output_writer.writerow(['outage_date','duration'])
+		output_writer.writerow(['outages','duration'])
 
 		for i in range (len(list1)-1, 0, -1):
 #		for i in range (0, len(list1)-1, 1):
@@ -98,7 +98,7 @@ def write_outage_csv(list1):
 #			delta =  record_datetime - last_record_datetime   
 			if delta > good_delta:
 				outage = delta - good_delta
-				output_writer.writerow([str(record_datetime), str(outage)[:-3]])
+				output_writer.writerow([str(record_datetime), str(outage)[:-3].rjust(13)])
 				print (str(i) + ' ' + str(record_datetime) + ' ' + str(delta))
 				
 			last_record_datetime = record_datetime
