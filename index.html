@@ -52,8 +52,7 @@ function drawVisualization() {
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
       var chart_1 = new google.visualization.ChartWrapper({
-  //       chartType: 'LineChart',
-         chartType: 'Table',
+         chartType: 'LineChart',
          containerId: 'chart_1',
          dataTable: data,
          options:{
@@ -165,6 +164,25 @@ function drawVisualization() {
       chart_6.draw();
    });
 
+   $.get("outages.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      var chart_6 = new google.visualization.ChartWrapper({
+         chartType: 'Table',
+         containerId: 'chart_6',
+         dataTable: data,
+         options:{
+            width: 450, height: 160,
+            title: "outages",
+			legend: 'left',
+            titleTextStyle : {color: 'grey', fontSize: 11},
+         }
+      });
+      table_1.draw();
+   });
+
 
 }
 google.setOnLoadCallback(drawVisualization)
@@ -182,4 +200,4 @@ version 16
 
 <div id="chart_2"></div>
 
-<div id="table_div"></div>
+<div id="table_1"></div>
