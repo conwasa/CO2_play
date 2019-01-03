@@ -84,6 +84,20 @@ def write_subset(list, filename, header):
 		for i in range (0, len(list), 1):
 			output_writer.writerow(list[i])
 
+def write_outage_csv(list1):
+	last_record_datetime = datetime.datetime.fromisoformat('1970-01-01 00:00')
+	good_delta = datetime.datetime.fromisoformat('1970-01-01 00:10') - datetime.datetime.fromisoformat('1970-01-01 00:00')
+	with open('outages.csv', mode='w',newline='') as output_file:    # newline = '' for Windows as otherwise it outputs an extra CR
+		output_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+		output_writer.writerow(['outage_date','duration'])
+
+		for i in range (len(list1)-1, 0, -1):
+			record_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
+			delta = last_record_datetime - record_datetime  
+			if delta > good_delta:
+				outage = delta - good_delta
+				output_writer.writerow([str(record_datetime), str(outage)])
+			last_record_datetime = record_datetime
 
 			
 def write_stats(list1):
@@ -158,6 +172,7 @@ write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_p
 
 write_stats(list1)
 
+write_outage_csv(list1)
 
 print ("Current year: ", datetime.date.today().strftime("%Y"))
 print ("Month of year: ", datetime.date.today().strftime("%m"))
