@@ -20,7 +20,7 @@
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
 </script>
 
-<--! script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script -->
+//<--! script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script -->
 <script type="text/javascript">
       google.charts.load('current', {'packages':['table']});
       google.charts.setOnLoadCallback(drawTable);
@@ -52,7 +52,8 @@ function drawVisualization() {
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
       var chart_1 = new google.visualization.ChartWrapper({
-         chartType: 'LineChart',
+  //       chartType: 'LineChart',
+         chartType: 'Table',
          containerId: 'chart_1',
          dataTable: data,
          options:{
