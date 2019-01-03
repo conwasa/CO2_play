@@ -164,7 +164,8 @@ write_subset(last_weeks_readings, 'last_weeks_readings.csv', ['day','co2_ppm'])
 
 end_of_last_month=datetime.date.today().replace(day=1) - datetime.timedelta (days = 1)
 start_of_last_month=end_of_last_month.replace(day=1)
-last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
+last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 0)
+#last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
 write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm'])
 
 all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 'month')
