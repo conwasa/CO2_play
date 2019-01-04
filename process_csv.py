@@ -161,7 +161,7 @@ list1=sorted(list1)
 list2=pad_rest_of_day_with_zeros(list1)
 
 todays_date=datetime.date.isoformat(datetime.date.today())
-todays_readings=get_subset(list1, todays_date, todays_date, 1)
+todays_readings=get_subset(list2, todays_date, todays_date, 1)
 write_subset(todays_readings, 'todays_readings.csv', ['time','co2_ppm'])
 
 yesterdays_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=1))
