@@ -86,10 +86,10 @@ def write_subset(list, filename, header):
 
 def write_outage_csv(list1):
 	last_record_datetime = datetime.datetime.fromisoformat('1970-01-01 00:00')
-	good_delta = datetime.datetime.fromisoformat('1970-01-01 00:11') - datetime.datetime.fromisoformat('1970-01-01 00:00')
+	good_delta = datetime.datetime.fromisoformat('1970-01-01 00:20') - datetime.datetime.fromisoformat('1970-01-01 00:00')
 	with open('outages.csv', mode='w',newline='') as output_file:    # newline = '' for Windows as otherwise it outputs an extra CR
 		output_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-		output_writer.writerow(['outages','duration'])
+		output_writer.writerow(['outages > 10m','duration'])
 
 		for i in range (len(list1)-1, 0, -1):
 #		for i in range (0, len(list1)-1, 1):
@@ -97,7 +97,7 @@ def write_outage_csv(list1):
 			delta = last_record_datetime - record_datetime  
 #			delta =  record_datetime - last_record_datetime   
 			if delta > good_delta:
-				outage = delta - good_delta
+				outage = delta 
 				output_writer.writerow([str(record_datetime), str(outage)[:-3]])
 				print (str(i) + ' ' + str(record_datetime) + ' ' + str(delta))
 				
@@ -147,7 +147,7 @@ def	pad_rest_of_day_with_zeros(list1):
 	
 	next_ts = last_record_datetime + timedelta(minutes=10)
 	while next_ts < end_of_day:
-		list2.append([str(next_ts.date()), str(next_ts.time())[:-3], 000])
+		list2.append([str(next_ts.date()), str(next_ts.time())[:-3], 420])
 		next_ts = next_ts +   timedelta(minutes=10) 
 	return(list2)	
 		
