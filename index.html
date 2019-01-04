@@ -26,7 +26,7 @@ function drawVisualization() {
 
 
 //   $.get("todays_readings.csv", function(csvString) {
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/dec2.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -166,7 +166,7 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 26
+version 27
 <div id="chart_1"></div>
 
 <div id="chart_3"></div>
@@ -184,8 +184,8 @@ version 26
 <a href="all_readings.csv" download>Download data</a>
 <h3>About</h3>
 Readings are taken using an IR absorbtion sensor with a light path length 
-of 1m. The sensor is in a ventilated weatherproof enclosure. Its connected to logging software running on a Windows 7 laptop.
-The sample interval is 10 minutes. A Python program processes the data to produce CSV files for the graphs and table, and Json
+of 1m. The sensor is in a ventilated weatherproof enclosure. Its connected to logging software running on a Windows 7 laptop,
+sampling every 10 minutes. A Python program processes the data to produce CSV files for the graphs and table, and Json
 for statistics. The graphs and table are produced using Google's Visualisation API and the Json processed with Handlebars.
-Data is stored in a Google storage bucket.     
+Data is stored in a Google storage bucket. A problem with CORS was bypassed using https://bypasscors.herokuapp.com/. 
   
