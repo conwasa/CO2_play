@@ -9,8 +9,9 @@
  <meta name="MobileOptimized" content="320">
 
  <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
- <meta name="description" content="test">
+ <meta name="description" content="UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm">
  
+ <script src="handlebars-v4.0.11.js"></script>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
@@ -166,7 +167,10 @@ function drawVisualization() {
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
-version 27
+<script type="text/x-handlebars-template">
+
+</script>
+
 <div id="chart_1"></div>
 
 <div id="chart_3"></div>
@@ -183,9 +187,23 @@ version 27
 <p>
 <a href="all_readings.csv" download>Download data</a>
 <h3>About</h3>
-Readings are taken using an IR absorbtion sensor with a light path length 
-of 1m. The sensor is in a ventilated weatherproof enclosure. Its connected to logging software running on a Windows 7 laptop,
+Readings are taken using an IR sensor with a light path of 1m. The sensor is in a ventilated weatherproof enclosure just above ground level. 
+Its connected to logging software running on a Windows 7 laptop,
 sampling every 10 minutes. A Python program processes the data to produce CSV files for the graphs and table, and Json
-for statistics. The graphs and table are produced using Google's Visualisation API and the Json processed with Handlebars.
-Data is stored in a Google storage bucket. A problem with CORS was bypassed using https://bypasscors.herokuapp.com/. 
+for statistics. The graphs and table are produced using Google's Visualisation API.
+Data is stored in a Google storage bucket. 
+
+<h3>Development Notes</h3>
+Adding a dial gauge was abandoned as the online documentation is for an old version of the Google Charts that breaks the graphs.
+Statistics are written to a Json file that was going to be processed using Handlebars. I've put that on hold to be able to move on.  
+Actually I need that to show the data is live. Daily readings are padded with a value of 420 to 23:59 so it can be compared with the previous day.
+
+<p>
+I tried getting the Windows logging software to run on Linux, but didn't get past a problem where the logging software freezes after 
+first reading is returned to the USB emulated COM port. I think the problem is the handshaking settings 7N1 8N1. 
+<p>
+A CORS problem accessing https://storage.googleapis.com/uk_bn3_co2/ from Github was bypassed using https://bypasscors.herokuapp.com/. 
+<p>
+The hardware: its a Senselife CAM desktop indoor air quality meter. I sold them for a while hoping schools would use them Pupils become drowsy
+when CO\u2082 > 1500ppm. I've 5 or 6 of them left.
   
