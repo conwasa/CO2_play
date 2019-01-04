@@ -168,6 +168,10 @@ yesterdays_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=1
 yesterdays_readings=get_subset(list1, yesterdays_date, yesterdays_date, 1)
 write_subset(yesterdays_readings, 'yesterdays_readings.csv', ['time','co2_ppm'])
 
+day_befores_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=2))
+day_befores_readings=get_subset(list1, day_befores_date, day_befores_date, 1)
+write_subset(day_befores_readings, 'day_befores_readings.csv', ['time','co2_ppm'])
+
 num_days_since_monday=((datetime.date.today().weekday()))
 num_days_to_sunday = 6 - num_days_since_monday
 last_monday_week=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=1) - timedelta(days=num_days_since_monday))
