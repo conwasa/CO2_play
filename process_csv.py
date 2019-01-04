@@ -91,11 +91,11 @@ def write_outage_csv(list1):
 		output_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 		output_writer.writerow(['outages > 10m','duration [hh:mm]'])
 
+		flag = False
+		last_outage_text = ''
 		for i in range (len(list1)-1, 0, -1):
-#		for i in range (0, len(list1)-1, 1):
 			record_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 			delta = last_record_datetime - record_datetime  
-#			delta =  record_datetime - last_record_datetime   
 			if delta > good_delta:
 				outage = delta 
 				if len(str(outage)) == 7:
@@ -103,44 +103,45 @@ def write_outage_csv(list1):
 				else:
 					outage_str = str(outage)[:-3]
 				output_writer.writerow([str(record_datetime), outage_str])
-				print (str(i) + ' ' + str(record_datetime) + ' ' + str(delta))
-				print ('len=' + str(len(str(outage))))
+				if flag == False:
+					last_outage_text = 'last outage: ' + str(record_datetime) + ' for ' + outage_str + ' [hh:mm]' 
+					flag = True
+#				print (str(i) + ' ' + str(record_datetime) + ' ' + str(delta))
+#				print ('len=' + str(len(str(outage))))
 			last_record_datetime = record_datetime
-
+		return(last_outage_text)
 			
-def write_stats(list1):
+def write_stats(list1, last_outage_text):
 	lowest_reading 	= '999'
 	latest_reading 	= '000'
 	highest_reading = '000'
 	last_record_datetime = datetime.datetime.fromisoformat('1970-01-01 00:00')
-	good_delta = datetime.datetime.fromisoformat('1970-01-01 00:20') - datetime.datetime.fromisoformat('1970-01-01 00:00')
 	
 	for i in range (0, len(list1), 1):
-		record_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 		if  list1[i][2] < lowest_reading:   # these are strings not numbers
 			lowest_reading = list1[i][2]
-			lowest_reading_datetime = record_datetime
+			lowest_reading_datetime_str = list1[i][0]
 		if  list1[i][2] > highest_reading:   # these are strings not numbers
 			highest_reading = list1[i][2]
-			highest_reading_datetime = record_datetime
-		delta = record_datetime - last_record_datetime 
-		if delta > good_delta:
-			outage_duration = str(delta)
-			last_outage_datetime = record_datetime
-		last_record_datetime = record_datetime
-		latest_reading = list1[i][2]
-		latest_reading_datetime = record_datetime
+			highest_reading_datetime_str = list1[i][0]
 
-	stats_list = []
-	stats_list.append(['latest reading [ppm] ', latest_reading, str(latest_reading_datetime) ])
-	stats_list.append(['lowest reading [ppm] ', lowest_reading, str(lowest_reading_datetime) ])
-	stats_list.append(['highest reading [ppm]', highest_reading, str(highest_reading_datetime) ])
-	stats_list.append(['last outage', str(highest_reading_datetime) , 'outage duration', outage_duration ])
 
-	stats = {'stats_list': stats_list}
-	print (stats)
+	headers_list = []
+	text = {}
+	text = { text: 'latest reading: ' + list1[-1][2] + 'ppm at ' + list1[-1][0]}
+	headers_list.append(text)
+	
+	text = { text: 'lowest reading: ' + lowest_reading + 'ppm at ' + lowest_reading_datetime_str}  
+	headers_list.append(text)
+
+	text = { text: 'highest reading: ' + highest_reading + 'ppm at ' + highest_reading_datetime_str}  
+	headers_list.append(text)
+	
+	header_dict = {header_lines: headers_list} 
+		
+	print (header_dict)
 	with open('stats.json', 'w') as write_file:
-		json.dump(stats_list, write_file, indent=2) 
+		json.dump(header_dict, write_file, indent=2) 
 
 def	pad_rest_of_day_with_zeros(list1):
 	
@@ -199,9 +200,8 @@ write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm']
 all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 'month')
 write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_ppm'])
 
-write_stats(list1)
-write_outage_csv(list1)
-
+outage_text=write_outage_csv(list1)
+write_stats(list1, outage_text)
 
 
 
