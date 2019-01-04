@@ -23,7 +23,10 @@
 <script type="text/javascript">
 
 function drawVisualization() {
-   $.get("todays_readings.csv", function(csvString) {
+
+
+//   $.get("todays_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/dec2.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
