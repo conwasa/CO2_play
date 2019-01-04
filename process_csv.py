@@ -155,8 +155,8 @@ def	pad_rest_of_day_with_zeros(list1):
 
 list1=read_csv_file()
 #sort into date and time
-#list1.sort(key=lambda x: x[0:1])
-list1=sorted(list1)
+list1.sort(key=lambda x: x[0:1])
+#list1=sorted(list1)
 
 list2=pad_rest_of_day_with_zeros(list1)
 
