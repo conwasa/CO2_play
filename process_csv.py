@@ -98,7 +98,7 @@ def write_outage_csv(list1):
 #			delta =  record_datetime - last_record_datetime   
 			if delta > good_delta:
 				outage = delta - good_delta
-				output_writer.writerow([str(record_datetime), str(outage)[:-3].rjust(13)])
+				output_writer.writerow([str(record_datetime), str(outage)[:-3]])
 				print (str(i) + ' ' + str(record_datetime) + ' ' + str(delta))
 				
 			last_record_datetime = record_datetime
@@ -138,6 +138,19 @@ def write_stats(list1):
 	with open('stats.json', 'w') as write_file:
 		json.dump(stats_list, write_file, indent=2) 
 
+def	pad_rest_of_day_with_zeros(list1):
+	
+	list2 = list1.copy()
+	
+	last_record_datetime = datetime.datetime.fromisoformat(list1[-1][0] + ' ' + list1[-1][1])
+	end_of_day = last_record_datetime.replace(hour=23).replace(minute=59)
+	
+	next_ts = last_record_datetime + timedelta(minutes=10)
+	while next_ts < end_of_day:
+		list2.append([str(next_ts.date()), str(next_ts.time())[:-3], 000])
+		next_ts = next_ts +   timedelta(minutes=10) 
+	return(list2)	
+		
 # MAIN SECTION
 
 list1=read_csv_file()
@@ -145,8 +158,10 @@ list1=read_csv_file()
 #list1.sort(key=lambda x: x[0:1])
 list1=sorted(list1)
 
+list2=pad_rest_of_day_with_zeros(list1)
+
 todays_date=datetime.date.isoformat(datetime.date.today())
-todays_readings=get_subset(list1, todays_date, todays_date, 1)
+todays_readings=get_subset(list2, todays_date, todays_date, 1)
 write_subset(todays_readings, 'todays_readings.csv', ['time','co2_ppm'])
 
 yesterdays_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=1))
@@ -177,8 +192,11 @@ all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 'month')
 write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_ppm'])
 
 write_stats(list1)
-
 write_outage_csv(list1)
+
+
+
+
 
 print ("Current year: ", datetime.date.today().strftime("%Y"))
 print ("Month of year: ", datetime.date.today().strftime("%m"))
