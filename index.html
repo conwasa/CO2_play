@@ -160,14 +160,45 @@ function drawVisualization() {
       table_1.draw();
    });
 }
-google.setOnLoadCallback(drawVisualization)
+function getAndRenderJSON() { 
+  ourRequest.open('GET', 'stats.json');
+  ourRequest.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // Action to be performed when the document is read;
+	  console.log('ready state good');
+ 	  data1 = JSON.parse(ourRequest.responseText); /* made into a global variable for debugging */
+	  console.log('data=' + data);
+	  createHTML(data);
+    } else {
+	   console.log('readyState=' + this.readyState + ' status=' +this.status);
+    }
+  };
+  ourRequest.onerror = function () {
+    console.log('connection error');
+  }
+  ourRequest.send();
+} /*end of getAndRenderJSON */
+
+
+
+// google.setOnLoadCallback(drawVisualization)
+
+google.setOnLoadCallback(getAndRenderJSON)
 </script>
 </head>
 <body>
 
 <script type="text/x-handlebars-template">
-
 </script>
+
+<div id="page_start"></div>
+<script type="text/javascript">
+var top_stats = "{{line1}}<br>{{line2}}<br>{{line3}}<br>";
+var template = Handlebatrs.compile(top_stats);
+function getAndRenderJSON()
+document.getElementById("page_start").innerHTML += data1 
+</script>
+
 
 <div id="chart_1"></div>
 
@@ -202,7 +233,13 @@ first reading is returned to the USB emulated COM port. I think the problem is t
 <p>
 A CORS problem accessing https://storage.googleapis.com/uk_bn3_co2/ from Github was bypassed using https://bypasscors.herokuapp.com/. 
 <p>
-The hardware: its a Senselife CAM desktop indoor air quality meter. I sold them for a while hoping schools would use them Pupils become drowsy
-when CO&#2082 > 1500ppm. I've 5 or 6 of them left.
+The hardware: its a Senselife CAM desktop indoor air quality meter, connected using a 30ft (10m) USB extension cable.
+
+<h3>To Do List</h3>
+Add controls to the graphs to page back and forther, last week / next week.
+Move to Linux to free up the Windows 7 latop.
+
+
+
 </body>
   
