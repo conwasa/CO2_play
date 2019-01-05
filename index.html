@@ -25,7 +25,6 @@
 
 function drawVisualization() {
 
-
 //   $.get("todays_readings.csv", function(csvString) {
    $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
@@ -83,8 +82,6 @@ function drawVisualization() {
       });
       chart_2.draw();
    });
-
-
 
    $.get("last_weeks_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
@@ -162,11 +159,12 @@ function drawVisualization() {
       });
       table_1.draw();
    });
-
-
 }
 google.setOnLoadCallback(drawVisualization)
 </script>
+</head>
+<body>
+
 <script type="text/x-handlebars-template">
 
 </script>
@@ -205,5 +203,6 @@ first reading is returned to the USB emulated COM port. I think the problem is t
 A CORS problem accessing https://storage.googleapis.com/uk_bn3_co2/ from Github was bypassed using https://bypasscors.herokuapp.com/. 
 <p>
 The hardware: its a Senselife CAM desktop indoor air quality meter. I sold them for a while hoping schools would use them Pupils become drowsy
-when CO\u2082 > 1500ppm. I've 5 or 6 of them left.
+when CO&#2082 > 1500ppm. I've 5 or 6 of them left.
+</body>
   
