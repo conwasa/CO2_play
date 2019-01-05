@@ -160,43 +160,30 @@ function drawVisualization() {
       table_1.draw();
    });
 }
-function getAndRenderJSON() { 
-  ourRequest.open('GET', 'stats.json');
-  ourRequest.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      // Action to be performed when the document is read;
-	  console.log('ready state good');
- 	  data1 = JSON.parse(ourRequest.responseText); /* made into a global variable for debugging */
-	  console.log('data=' + data);
-	  createHTML(data);
-    } else {
-	   console.log('readyState=' + this.readyState + ' status=' +this.status);
-    }
-  };
-  ourRequest.onerror = function () {
-    console.log('connection error');
-  }
-  ourRequest.send();
-} /*end of getAndRenderJSON */
 
 
 
-// google.setOnLoadCallback(drawVisualization)
 
-google.setOnLoadCallback(getAndRenderJSON)
+google.setOnLoadCallback(drawVisualization)
+
 </script>
 </head>
 <body>
 
 <script type="text/x-handlebars-template">
 </script>
-
 <div id="page_start"></div>
 <script type="text/javascript">
 var top_stats = "{{line1}}<br>{{line2}}<br>{{line3}}<br>";
 var template = Handlebars.compile(top_stats);
+var data = {
+  "line1": "latest reading:  427ppm at 2019-01-05 11:21",
+  "line2": "lowest reading:  393ppm at 2018-12-09 03:12",
+  "line3": "highest reading: 551ppm at 2018-12-27 22:56"
+};
 
-document.getElementById("page_start").innerHTML += data1 
+
+document.getElementById("page_start").innerHTML += data 
 </script>
 ver 2
 
