@@ -120,28 +120,23 @@ def write_stats(list1, last_outage_text):
 	for i in range (0, len(list1), 1):
 		if  list1[i][2] < lowest_reading:   # these are strings not numbers
 			lowest_reading = list1[i][2]
-			lowest_reading_datetime_str = list1[i][0]
+			lowest_reading_datetime_str = list1[i][0] + ' ' + list1[i][1]
 		if  list1[i][2] > highest_reading:   # these are strings not numbers
 			highest_reading = list1[i][2]
-			highest_reading_datetime_str = list1[i][0]
+			highest_reading_datetime_str = list1[i][0] + ' ' + list1[i][1]
 
 
-	headers_list = []
-	text = {}
-	text = { text: 'latest reading: ' + list1[-1][2] + 'ppm at ' + list1[-1][0]}
-	headers_list.append(text)
+	line1 = 'latest reading:  ' + list1[-1][2] + 'ppm at ' + list1[-1][0] + ' ' + list1[-1][1]
+	line2 = 'lowest reading:  ' + lowest_reading + 'ppm at ' + lowest_reading_datetime_str
+	line3 = 'highest reading: ' + highest_reading + 'ppm at ' + highest_reading_datetime_str
+	stats_dict = {	'line1' : line1,
+					'line2' : line2,
+					'line3' : line3}
 	
-	text = { text: 'lowest reading: ' + lowest_reading + 'ppm at ' + lowest_reading_datetime_str}  
-	headers_list.append(text)
-
-	text = { text: 'highest reading: ' + highest_reading + 'ppm at ' + highest_reading_datetime_str}  
-	headers_list.append(text)
-	
-	header_dict = {header_lines: headers_list} 
 		
-	print (header_dict)
+	print (stats_dict)
 	with open('stats.json', 'w') as write_file:
-		json.dump(header_dict, write_file, indent=2) 
+		json.dump(stats_dict, write_file, indent=2) 
 
 def	pad_rest_of_day_with_zeros(list1):
 	

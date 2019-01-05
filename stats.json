@@ -1,23 +1,5 @@
-[
-  [
-    "latest reading [ppm] ",
-    "443",
-    "2019-01-04 18:51:00"
-  ],
-  [
-    "lowest reading [ppm] ",
-    "393",
-    "2018-12-09 03:12:00"
-  ],
-  [
-    "highest reading [ppm]",
-    "551",
-    "2018-12-27 22:56:00"
-  ],
-  [
-    "last outage",
-    "2018-12-27 22:56:00",
-    "outage duration",
-    "0:27:00"
-  ]
-]
+{
+  "line1": "latest reading:  427ppm at 2019-01-05 11:21",
+  "line2": "lowest reading:  393ppm at 2018-12-09 03:12",
+  "line3": "highest reading: 551ppm at 2018-12-27 22:56"
+}
