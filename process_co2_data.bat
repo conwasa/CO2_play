@@ -13,3 +13,7 @@ type C:\user\SenselifeCamSoftware\2019\10\*.csv |find "20" >> all_readings.csv |
 type C:\user\SenselifeCamSoftware\2019\11\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\12\*.csv |find "20" >> all_readings.csv |find "20"
 python process_csv.py
+gsutil cp *.csv gs://uk_bn3_co2
+gsutil cp *.json gs://uk_bn3_co2
+timeout 5
+
