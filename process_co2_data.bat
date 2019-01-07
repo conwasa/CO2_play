@@ -40,6 +40,7 @@ del done_daily_copy_flag.txt
 echo "flag file deleted"
 )
 echo %time%
+rem Script take 70s to run
 echo "start timeout"
-timeout 1
-REM goto start
+timeout 530
+goto start
