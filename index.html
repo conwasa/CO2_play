@@ -9,11 +9,13 @@
  <meta name="MobileOptimized" content="320">
  <style>
 Body { 	font-family: "Lucida Console", Monaco, monospace;
-		font-size:xx-small;
+		font-size:small;
 		}
+.smaller {font-size:xx-small;}
 @media (min-width: 600px) {
-	body {	font-size: 2rem;
-			background: red}
+						.smaller {	font-size:small;
+						background: red}
+}
 
  </style>
  
@@ -201,11 +203,10 @@ google.setOnLoadCallback(drawVisualization)
 </script>
 </head>
 <body>
-<H1>Real-time outdoor CO<sub>2</sub> level Brighton England UK BN3</H1>
-<script type="text/x-handlebars-template">
-</script>
-<div id="page_start"></div>
+<H1  class="smaller">Real-time outdoor CO<sub>2</sub> level Brighton England UK BN3</H1>
 
+<div id="page_start" class="smaller"></div>
+<p>
 <div id="chart_1"></div>
 
 <div id="chart_3"></div>
