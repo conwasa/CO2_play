@@ -125,8 +125,8 @@ def write_stats(list1, last_outage_text):
 			highest_reading = list1[i][2]
 			highest_reading_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 
-	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + ' ppm at ' + list1[-1][1] + ' hours on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
-	line2 = 'lowest reading:&nbsp;&nbsp;&nbsp;' + lowest_reading + ' ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' hours on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
+	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + ' ppm at ' + list1[-1][1] + ' hours on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
+	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + ' ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' hours on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
 	line3 = 'highest reading:&nbsp;' + highest_reading + ' ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' hours on ' + highest_reading_datetime.strftime("%A") + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
 	stats_dict = {	'line1' : line1,
 					'line2' : line2,

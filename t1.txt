@@ -1,0 +1,8 @@
+all_historic_readings.csv
+all_readings.csv
+day_befores_readings.csv
+last_months_readings.csv
+last_weeks_readings.csv
+outages.csv
+todays_readings.csv
+yesterdays_readings.csv

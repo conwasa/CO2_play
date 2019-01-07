@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <head>
  <meta charset="utf-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,7 +38,7 @@ function drawVisualization() {
          containerId: 'chart_1',
          dataTable: data,
          options:{
-            width: 450, height: 160,
+            width: '100%', height: 160,
             title: "Today's outdoor CO\u2082 levels [ppm] UK postcode BN3 7",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
@@ -164,18 +164,20 @@ function drawVisualization() {
 
 	var ourRequest = new XMLHttpRequest();
 	var URL = 'https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/stats.json';
-  ourRequest.open('GET', 'stats.json');
+  ourRequest.open('GET', 'https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/stats.json');
   ourRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       // Action to be performed when the document is read;
 	  console.log('ready state good');
  	  data1 = JSON.parse(ourRequest.responseText); /* made into a global variable for debugging */
+
+	  var myInfo = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
+	  var template = Handlebars.compile(myInfo);
+
+	  var data2 = template(data1)
 	  console.log('data=' + data1);
 
-	  var top_stats = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
-	  var template = Handlebars.compile(top_stats);
-
-	  document.getElementById("page_start").innerHTML += stats_data 
+	  document.getElementById("page_start").innerHTML += data2  
 	  // createHTML(data1);
     } else {
 	   console.log('readyState=' + this.readyState + ' status=' +this.status);
@@ -185,27 +187,17 @@ function drawVisualization() {
     console.log('connection error');
   }
   ourRequest.send();
-   
-   
 }
-
-
-
 
 google.setOnLoadCallback(drawVisualization)
 
 </script>
 </head>
 <body>
-
+<H1>Real-time outdoor CO&#8322 level Brighton England UK BN3</H1>
 <script type="text/x-handlebars-template">
 </script>
 <div id="page_start"></div>
-<script type="text/javascript">
-
-</script>
-ver 2 document.getElementById("page_start").innerHTML += stats_data 
-
 
 <div id="chart_1"></div>
 
