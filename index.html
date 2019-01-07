@@ -12,7 +12,7 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
 		}
 .smaller {font-size:xx-small;}
-.chart {width: 10%;}
+.chart {width: 90%;}
 @media (min-width: 800px) {
 		.smaller {	font-size:small;
 					background: red}
@@ -50,7 +50,7 @@ function drawVisualization() {
          containerId: 'chart_1',
          dataTable: data,
          options:{
-            width: 450, height: 160,
+            width: "100%", height: 160,
             title: "Today's outdoor CO\u2082 levels [ppm]",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
