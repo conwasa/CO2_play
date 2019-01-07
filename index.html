@@ -12,9 +12,12 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
 		}
 .smaller {font-size:xx-small;}
+.chart {width: 50%;}
 @media (min-width: 800px) {
 						.smaller {	font-size:small;
 						background: red}
+						.chart {width: 50%;
+								background: yellow;}
 }
 
  </style>
@@ -47,8 +50,8 @@ function drawVisualization() {
          containerId: 'chart_1',
          dataTable: data,
          options:{
-            width: graph_width, height: "25%",
-            title: "Today's outdoor CO\u2082 levels [ppm] UK postcode BN3 7",
+            width: 450, height: 160,
+            title: "Today's outdoor CO\u2082 levels [ppm]",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -203,21 +206,21 @@ google.setOnLoadCallback(drawVisualization)
 </script>
 </head>
 <body>
-<H1  class="smaller">Real-time outdoor CO<sub>2</sub> level Brighton England UK BN3</H1>
+<H1  class="smaller">Outdoor CO<sub>2</sub> levels Brighton England UK BN3</H1>
 
 <div id="page_start" class="smaller"></div>
 <p>&nbsp
-<div id="chart_1"></div>
+<div id="chart_1" class="chart"></div>
 
-<div id="chart_3"></div>
+<div id="chart_3" class="chart"></div>
 
-<div id="chart_2"></div>
+<div id="chart_2" class="chart"></div>
 
-<div id="chart_4"></div>
+<div id="chart_4" class="chart"></div>
 
-<div id="chart_5"></div>
+<div id="chart_5" class="chart"></div>
 
-<div id="chart_6"></div>
+<div id="chart_6" class="chart"></div>
 <p>
 <div id="table_1"></div>
 <p>
