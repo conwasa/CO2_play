@@ -8,8 +8,11 @@
  <meta name="HandheldFriendly" content="True">
  <meta name="MobileOptimized" content="320">
  <style>
+ chart_width = 22;
+
 Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
+		 --chart_width : 33;
 		}
 .smaller {font-size:xx-small;}
 .page_orientation.smaller {font-size:xx-small;}
@@ -27,11 +30,13 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 		}
 @media (max-width: 800px) and screen and (orientation: portrait) {div {background-color: green;}
 											.page_orientation span { display: none;}
-											.page_orientation:after {content: 'in Portrait mode';}
+											.page_orientation:after {content: 'in Portrait display mode';}
+											var --chart_width : 50;
 											}
 @media (min-width: 800px)screen and (orientation: landscape) {div {background-color: orange;}  
 											.page_orientation span { display: none;}
-											.page_orientation:after {content: 'in Landscape mode';}
+											.page_orientation:after {content: 'in Landscape display mode';}
+											var --chart_width : 60;
 											}
 
  </style>
@@ -50,8 +55,8 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 </script>
 
 <script type="text/javascript">
-var graph_width = "20%"
 function drawVisualization() {
+	var graph_width2 = 111
 
 //   $.get("todays_readings.csv", function(csvString) {
    $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
@@ -213,6 +218,8 @@ function drawVisualization() {
     console.log('connection error');
   }
   ourRequest.send();
+console.log('myvar=' + 	11);
+
 }
 
 google.setOnLoadCallback(drawVisualization)
@@ -223,9 +230,7 @@ google.setOnLoadCallback(drawVisualization)
 <H1  class="medium_size">Outdoor CO<sub>2</sub> levels Brighton England UK BN3</H1>
 
 <div id="page_start" class="smaller"></div>
-<div class="page_orientation smaller"><span>in Desktop display mode</span></div>
-
-
+<div class="page_orientation smaller"><span></span></div>
 <p>
 <div id="chart_1" class="chart"></div>
 
