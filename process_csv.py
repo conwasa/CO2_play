@@ -115,25 +115,24 @@ def write_stats(list1, last_outage_text):
 	lowest_reading 	= '999'
 	latest_reading 	= '000'
 	highest_reading = '000'
-	last_record_datetime = datetime.datetime.fromisoformat('1970-01-01 00:00')
+	last_record_datetime = datetime.datetime.fromisoformat(list1[-1][0] + ' ' + list1[-1][1])
 	
 	for i in range (0, len(list1), 1):
 		if  list1[i][2] < lowest_reading:   # these are strings not numbers
 			lowest_reading = list1[i][2]
-			lowest_reading_datetime_str = list1[i][0] + ' ' + list1[i][1]
+			lowest_reading_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 		if  list1[i][2] > highest_reading:   # these are strings not numbers
 			highest_reading = list1[i][2]
-			highest_reading_datetime_str = list1[i][0] + ' ' + list1[i][1]
+			highest_reading_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 
-
-	line1 = 'latest reading:  ' + list1[-1][2] + 'ppm at ' + list1[-1][0] + ' ' + list1[-1][1]
-	line2 = 'lowest reading:  ' + lowest_reading + 'ppm at ' + lowest_reading_datetime_str
-	line3 = 'highest reading: ' + highest_reading + 'ppm at ' + highest_reading_datetime_str
+	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + ' ppm at ' + list1[-1][1] + ' hours on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
+	line2 = 'lowest reading:&nbsp;&nbsp;&nbsp;' + lowest_reading + ' ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' hours on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
+	line3 = 'highest reading:&nbsp;' + highest_reading + ' ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' hours on ' + highest_reading_datetime.strftime("%A") + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
 	stats_dict = {	'line1' : line1,
 					'line2' : line2,
 					'line3' : line3}
 	
-		
+
 	print (stats_dict)
 	with open('stats.json', 'w') as write_file:
 		json.dump(stats_dict, write_file, indent=2) 
@@ -197,9 +196,6 @@ write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_p
 
 outage_text=write_outage_csv(list1)
 write_stats(list1, outage_text)
-
-
-
 
 print ("Current year: ", datetime.date.today().strftime("%Y"))
 print ("Month of year: ", datetime.date.today().strftime("%m"))

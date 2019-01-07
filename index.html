@@ -47,7 +47,7 @@ function drawVisualization() {
       chart_1.draw();
    });
 
-   $.get("yesterdays_readings.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/yesterdays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -66,7 +66,7 @@ function drawVisualization() {
       chart_3.draw();
    });
 
-   $.get("day_befores_readings.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/day_befores_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -85,7 +85,7 @@ function drawVisualization() {
       chart_2.draw();
    });
 
-   $.get("last_weeks_readings.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/last_weeks_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -104,7 +104,7 @@ function drawVisualization() {
       chart_4.draw();
    });
 
-   $.get("last_months_readings.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -124,7 +124,7 @@ function drawVisualization() {
    });
 
 
-   $.get("all_historic_readings.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/all_historic_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -143,7 +143,7 @@ function drawVisualization() {
       chart_6.draw();
    });
 
-   $.get("outages.csv", function(csvString) {
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/outages.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -174,17 +174,6 @@ function drawVisualization() {
 
 	  var top_stats = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
 	  var template = Handlebars.compile(top_stats);
-		var junk_stats_data = 	template({
-		"line1": "latest reading:&nbsp;&nbsp;  427ppm at 2019-01-05 11:21",
-		"line2": "lowest reading:&nbsp;&nbsp;  393ppm at 2018-12-09 03:12",
-		"line3": "highest reading:&nbsp; 551ppm at 2018-12-27 22:56"
-		});
-
-		var stats_data = template(data1);
-
-
-	
-
 
 	  document.getElementById("page_start").innerHTML += stats_data 
 	  // createHTML(data1);
@@ -234,21 +223,16 @@ ver 2 document.getElementById("page_start").innerHTML += stats_data
 <p>
 <a href="all_readings.csv" download>Download data</a>
 <h3>About</h3>
-Readings are taken using an IR sensor with a light path of 1m. The sensor is in a ventilated weatherproof enclosure just above ground level. 
-Its connected to logging software running on a Windows 7 laptop,
-sampling every 10 minutes. A Python program processes the data to produce CSV files for the graphs and table, and Json
-for statistics. The graphs and table are produced using Google's Visualisation API.
-Data is stored in a Google storage bucket. 
-
+Readings are taken every 10 minutes from a sensor mounted at ground level. Its connected to logging software running on a Windows 7 laptop,
+<p>The data has structure. Why? The sensor is in a steet of 1930s semi detached houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
 <h3>Development Notes</h3>
-Adding a dial gauge was abandoned as the online documentation is for an old version of the Google Charts that breaks the graphs.
-Statistics are written to a Json file that was going to be processed using Handlebars. I've put that on hold to be able to move on.  
-Actually I need that to show the data is live. Daily readings are padded with a value of 420 to 23:59 so it can be compared with the previous day.
-<p>What's great is the data has structure. I think its driven by natural gas (methane) powered central heating. The street has 25 or so 1930s semi 
-detatched houses. All but one have central heating boilers venting at ground level. There's a main road (the Old Shoreham Road) 100 yards from the sensor.   
+A Python program processes the data to produce CSV files for the graphs and table, and Json for statistics. The graphs and table are produced using 
+Google's Visualisation API and Json rendered using Handlebars. CSV and Json files are coied to a Google storage bucket. 
+
+<p>Daily readings are padded with a value of 420 to 23:59 so it can be visually compared with the previous day.
 <p>
-I tried getting the Windows logging software to run on Linux, but didn't get past a problem where the logging software freezes after 
-first reading is returned to the USB emulated COM port. I think the problem is the handshaking settings 7N1 8N1. 
+I tried getting the Windows logging software to run on Linux, but didn't get past the logging software freezing after returning the first value.
+Its likely a handshaking issue. Its running on Windows 7.
 <p>
 A CORS problem accessing https://storage.googleapis.com/uk_bn3_co2/ from Github was bypassed using https://bypasscors.herokuapp.com/. 
 <p>
@@ -256,11 +240,14 @@ The hardware is a Senselife CAM desktop indoor air quality meter, connected usin
 
 <h3>To Do List</h3>
 <ul>
+<li>Add styling to make more responsive</li>
+<li>Add calls to Twitter API, tweet 'record high/low/etc </li>
 <li>Add controls to page back and forth through the graphs</li>
 <li>Move to Linux laptop that runs 24x7</li>
 <li>Add local outdoor temperature logging</li>
 <li>Add a second CO&#8322 sensor  in the same enclosure to gauge accuracy</li>
-<li>Add a camera to count traffic flow on the Old Shoreham Road</li>
+<li>Add traffic flow on the Old Shoreham Road, probably from Google Maps API</li>
+<li>Add mobile location aware version to vechile</li>
 </ul>
 </body>
   
