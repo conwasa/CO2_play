@@ -8,8 +8,15 @@
  <meta name="HandheldFriendly" content="True">
  <meta name="MobileOptimized" content="320">
  <style>
-Body { font-family: "Lucida Console", Monaco, monospace;}
+Body { 	font-family: "Lucida Console", Monaco, monospace;
+		font-size:xx-small;
+		}
+@media (min-width: 600px) {
+	body {	font-size: 2rem;
+			background: red}
+
  </style>
+ 
  <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
  <meta name="description" content="UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm">
  
@@ -24,7 +31,7 @@ Body { font-family: "Lucida Console", Monaco, monospace;}
 </script>
 
 <script type="text/javascript">
-
+var graph_width = "20%"
 function drawVisualization() {
 
 //   $.get("todays_readings.csv", function(csvString) {
@@ -38,7 +45,7 @@ function drawVisualization() {
          containerId: 'chart_1',
          dataTable: data,
          options:{
-            width: '100%', height: 160,
+            width: graph_width, height: 160,
             title: "Today's outdoor CO\u2082 levels [ppm] UK postcode BN3 7",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
@@ -114,7 +121,7 @@ function drawVisualization() {
          containerId: 'chart_5',
          dataTable: data,
          options:{
-            width: 450, height: 160,
+            width: '100%', height: 160,
             title: "last months' readings",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
@@ -134,7 +141,7 @@ function drawVisualization() {
          containerId: 'chart_6',
          dataTable: data,
          options:{
-            width: 450, height: 160,
+            width: '100%', height: 160,
             title: "all historic readings",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
