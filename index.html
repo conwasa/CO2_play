@@ -24,7 +24,8 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 					background: yellow;}
 		.medium_size {font-size:small}
 		}
-@media screen and (orientation: portrait) {div {background-color: green;}  }
+@media screen and (orientation: portrait) {div {background-color: green;};
+											document.getElementById("page_orientation").innerHTML = "XXXXXXXXXXXXX"; }
 @media screen and (orientation: landscape) {div {background-color: orange;}  }
 
  </style>
@@ -216,6 +217,8 @@ google.setOnLoadCallback(drawVisualization)
 <H1  class="medium_size">Outdoor CO<sub>2</sub> levels Brighton England UK BN3</H1>
 
 <div id="page_start" class="smaller"></div>
+<div id="page_orientation" class="smaller"></div>
+
 <p>
 <div id="chart_1" class="chart"></div>
 
