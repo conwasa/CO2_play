@@ -12,7 +12,7 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
 		}
 .smaller {font-size:xx-small;}
-@media (min-width: 600px) {
+@media (min-width: 800px) {
 						.smaller {	font-size:small;
 						background: red}
 }
@@ -47,7 +47,7 @@ function drawVisualization() {
          containerId: 'chart_1',
          dataTable: data,
          options:{
-            width: graph_width, height: 160,
+            width: graph_width, height: "25%",
             title: "Today's outdoor CO\u2082 levels [ppm] UK postcode BN3 7",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
@@ -206,7 +206,7 @@ google.setOnLoadCallback(drawVisualization)
 <H1  class="smaller">Real-time outdoor CO<sub>2</sub> level Brighton England UK BN3</H1>
 
 <div id="page_start" class="smaller"></div>
-<p>
+<p>&nbsp
 <div id="chart_1"></div>
 
 <div id="chart_3"></div>
