@@ -14,7 +14,7 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 .smaller {font-size:xx-small;}
 .page_orientation.smaller {font-size:xx-small;}
 .chart {width: 100%;
-		background: purple'
+		background: white'
 		margin-left: 0px}
 
 .medium_size {font-size:small}
@@ -31,7 +31,7 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 											.page_orientation:after {content: 'in Portrait display mode';
 											}
 											}
-@media screen and (orientation: landscape) {div {background-color: brown;}  
+@media screen and (orientation: landscape) {div {background-color: white;}  
 											.page_orientation span { display: none;}
 											.page_orientation:after {content: 'in Landscape display mode';}
 											.chart 	{	width: 100%;
@@ -72,6 +72,7 @@ function drawVisualization() {
             width: 'goose', height: 160,
             title: "Today's outdoor CO\u2082 levels [ppm]",
 			legend: 'left',
+			hAxis: {slantedText: false},
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
       });
@@ -91,7 +92,8 @@ function drawVisualization() {
             width: '100%', height: 160,
             title: "yesterday's readings",
 			legend: 'left',
-            titleTextStyle : {color: 'grey', fontSize: 11},
+            hAxis: {slantedText: false},
+			titleTextStyle : {color: 'grey', fontSize: 11},
          }
       });
       chart_3.draw();
@@ -109,6 +111,7 @@ function drawVisualization() {
          options:{
             width: '100%', height: 160,
             title: "the day before's",
+			hAxis: {slantedText: false},
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -128,6 +131,7 @@ function drawVisualization() {
          options:{
             width: '100%', height: 160,
             title: "last weeks' readings",
+			hAxis: {slantedText: false},
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -136,7 +140,7 @@ function drawVisualization() {
    });
 
    $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
-      // transform the CSV string into a 2-dimensional array
+      // transform the CSV string into a 2-dimensional 
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
       var data = new google.visualization.arrayToDataTable(arrayData);
@@ -147,6 +151,7 @@ function drawVisualization() {
          options:{
             width: '100%', height: 160,
             title: "last months' readings",
+			hAxis: {slantedText: false},
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -166,7 +171,8 @@ function drawVisualization() {
          dataTable: data,
          options:{
             width: '100%', height: 160,
-            title: "all historic readings",
+            hAxis: {slantedText: false},
+			title: "all historic readings",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -202,14 +208,23 @@ function drawVisualization() {
 	  console.log('ready state good');
  	  data1 = JSON.parse(ourRequest.responseText); /* made into a global variable for debugging */
 
-	  var myInfo = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
-	  var template = Handlebars.compile(myInfo);
+	  var H1_location = "{{{site_location}}}";
+	  var H1_location_template = Handlebars.compile(H1_location);
+	  var H1_location_html = H1_location_template(data1)
+	  document.getElementById("heading_H1").innerHTML += H1_location_html  
 
-	  var data2 = template(data1)
-	  console.log('data=' + data1);
+	  var latest_co2_readings = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
+	  var latest_co2_readings_template = Handlebars.compile(latest_co2_readings);
+	  var latest_co2_readings_html = latest_co2_readings_template(data1)
+	  document.getElementById("page_start").innerHTML += latest_co2_readings_html  
 
-	  document.getElementById("page_start").innerHTML += data2  
-	  // createHTML(data1);
+	  var download_description = "  {{{dl_file_text}}}";
+	  var download_description_template = Handlebars.compile(download_description);
+	  var download_description_html = download_description_template(data1)
+	  document.getElementById("dl_description").innerHTML += download_description_html  
+
+
+
     } else {
 	   console.log('readyState=' + this.readyState + ' status=' +this.status);
     }
@@ -226,7 +241,7 @@ google.setOnLoadCallback(drawVisualization)
 </script>
 </head>
 <body>
-<H1  class="medium_size">Outdoor CO<sub>2</sub> levels Brighton England UK BN3</H1>
+<H1  class="medium_size" id="heading_H1">Outdoor CO<sub>2</sub> levels </H1>
 
 <div id="page_start" class="smaller"></div>
 <div class="page_orientation smaller"><span></span></div>
@@ -245,7 +260,8 @@ google.setOnLoadCallback(drawVisualization)
 <p>
 <div id="table_1"></div>
 <p>
-<a href="all_readings.csv" download>Download data</a>
+<div id="dl_description" class="smaller"><a href="all_readings.csv" download>Download data</a></div>
+
 <h3>About</h3>
 Readings are taken every 10 minutes. 
 <p>The data has structure. Why? The sensor is in a street of 1930s semi detached houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  

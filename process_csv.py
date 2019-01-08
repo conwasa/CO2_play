@@ -9,7 +9,7 @@ from datetime import timedelta
 
 import io   # for utf-8 encoding
 #import subprocess
-
+import locale
 from sys     import stderr
 
 #print '<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'  
@@ -72,8 +72,9 @@ def get_subset(list, start_date, end_date, y_value):
 			elif y_value == 'month':
 				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%b"))
 			else:
-				row.append(list[i][y_value])  # time 
-			row.append(list[i][2])  # time 
+				row.append(list[i][y_value])  # time
+				print ("var1=" + list[i][y_value][0:2])
+			row.append(list[i][2])  # pm value 
 			returned_list.append(row)	
 	return(returned_list)
 
@@ -125,22 +126,30 @@ def write_stats(list1, last_outage_text):
 			highest_reading = list1[i][2]
 			highest_reading_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 
+	num_records = len(list1)
+	file_size = num_records * 20.0 / 1000
+	num_records_s = str(num_records)
+	num_records_f 	= str(num_records_s[0:len(num_records_s)-3]) + ',' +  str(num_records_s[len(num_records_s)-3:len(num_records_s)+1])
+	file_size_f = str(file_size)	+ ' kB'
+	dl_file_text = num_records_f + ' records, ' + file_size_f  
+	
 	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + ' ppm at ' + list1[-1][1] + ' hours on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
 	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + ' ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' hours on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
 	line3 = 'highest reading:&nbsp;' + highest_reading + ' ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' hours on ' + highest_reading_datetime.strftime("%A") + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
 	stats_dict = {	'line1' : line1,
 					'line2' : line2,
-					'line3' : line3}
+					'line3' : line3,
+					'site_location' : 'Brighton England UK BN3 7',
+					'dl_file_text' : dl_file_text }
 	
-
 	print (stats_dict)
 	with open('stats.json', 'w') as write_file:
 		json.dump(stats_dict, write_file, indent=2) 
 
 def	pad_rest_of_day_with_zeros(list1):
-	
+
 	list2 = list1.copy()
-	
+		
 	last_record_datetime = datetime.datetime.fromisoformat(list1[-1][0] + ' ' + list1[-1][1])
 	end_of_day = last_record_datetime.replace(hour=23).replace(minute=59)
 	
@@ -187,7 +196,7 @@ write_subset(last_weeks_readings, 'last_weeks_readings.csv', ['day','co2_ppm'])
 
 end_of_last_month=datetime.date.today().replace(day=1) - datetime.timedelta (days = 1)
 start_of_last_month=end_of_last_month.replace(day=1)
-last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 0)
+last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'month')
 #last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
 write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm'])
 
