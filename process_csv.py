@@ -73,7 +73,6 @@ def get_subset(list, start_date, end_date, y_value):
 				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%b"))
 			else:
 				row.append(list[i][y_value])  # time
-				print ("var1=" + list[i][y_value][0:2])
 			row.append(list[i][2])  # pm value 
 			returned_list.append(row)	
 	return(returned_list)
@@ -133,13 +132,13 @@ def write_stats(list1, last_outage_text):
 	file_size_f = str(file_size)	+ ' kB'
 	dl_file_text = num_records_f + ' records, ' + file_size_f  
 	
-	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + ' ppm at ' + list1[-1][1] + ' hours on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
-	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + ' ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' hours on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
-	line3 = 'highest reading:&nbsp;' + highest_reading + ' ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' hours on ' + highest_reading_datetime.strftime("%A") + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
+	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + 'ppm at ' + list1[-1][1] + ' on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
+	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + 'ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
+	line3 = 'highest reading:&nbsp;' + highest_reading + 'ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' on ' + highest_reading_datetime.strftime("%A") + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
 	stats_dict = {	'line1' : line1,
 					'line2' : line2,
 					'line3' : line3,
-					'site_location' : 'Brighton England UK BN3 7',
+					'site_location' : 'Brighton England UK BN3',
 					'dl_file_text' : dl_file_text }
 	
 	print (stats_dict)
@@ -193,6 +192,12 @@ last_monday_week=datetime.date.isoformat(datetime.date.today() - timedelta(weeks
 last_sunday=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=1) + timedelta(days=num_days_to_sunday))
 last_weeks_readings=get_subset(list1, last_monday_week, last_sunday, 'day_of_week')
 write_subset(last_weeks_readings, 'last_weeks_readings.csv', ['day','co2_ppm'])
+
+
+two_mondays_ago=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=2) - timedelta(days=num_days_since_monday))
+two_sundays_ago=datetime.date.isoformat(datetime.date.today() - timedelta(weeks=2) + timedelta(days=num_days_to_sunday))
+week_before_lasts_readings=get_subset(list1, two_mondays_ago, two_sundays_ago, 'day_of_week')
+write_subset(week_before_lasts_readings, 'week_before_lasts_readings.csv', ['day','co2_ppm'])
 
 end_of_last_month=datetime.date.today().replace(day=1) - datetime.timedelta (days = 1)
 start_of_last_month=end_of_last_month.replace(day=1)

@@ -1,7 +1,4 @@
-:start
-echo %time%
-echo off
-type C:\user\SenselifeCamSoftware\2018\11\*.csv |find "20" > all_readings.csv |find "20"
+dowload_descriptiontware\2018\11\*.csv |find "20" > all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2018\12\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\01\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\02\*.csv |find "20" >> all_readings.csv |find "20"
@@ -31,6 +28,7 @@ gsutil cp all_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 gsutil cp day_befores_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 gsutil cp last_months_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 gsutil cp last_weeks_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
+gsutil cp week_before_lasts_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 gsutil cp yesterdays_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 copy flag.txt done_daily_copy_flag.txt
 ))

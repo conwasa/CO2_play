@@ -26,7 +26,7 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 					border: 5px solid green;}
 		.medium_size {font-size:small}
 		}
-@media screen and (orientation: portrait) {div {background-color: green;}
+@media screen and (orientation: portrait) {div {background-color: white;}
 											.page_orientation span { display: none;}
 											.page_orientation:after {content: 'in Portrait display mode';
 											}
@@ -138,6 +138,27 @@ function drawVisualization() {
       });
       chart_4.draw();
    });
+
+   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/week_before_lasts_readings.csv", function(csvString) {
+      // transform the CSV string into a 2-dimensional array
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
+      // this new DataTable object holds all the data
+      var data = new google.visualization.arrayToDataTable(arrayData);
+      var chart_7 = new google.visualization.ChartWrapper({
+         chartType: 'LineChart',
+         containerId: 'chart_7',
+         dataTable: data,
+         options:{
+            width: '100%', height: 160,
+            title: "The week before's readings",
+			hAxis: {slantedText: false},
+			legend: 'left',
+            titleTextStyle : {color: 'grey', fontSize: 11},
+         }
+      });
+      chart_7.draw();
+   });
+
 
    $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional 
@@ -254,6 +275,8 @@ google.setOnLoadCallback(drawVisualization)
 
 <div id="chart_4" class="chart"></div>
 
+<div id="chart_7" class="chart"></div>
+
 <div id="chart_5" class="chart"></div>
 
 <div id="chart_6" class="chart"></div>
@@ -262,18 +285,18 @@ google.setOnLoadCallback(drawVisualization)
 
 <h3>About</h3>
 Readings are taken every 10 minutes. 
-<p>The data has structure. Why? The sensor is in a street of 1930s semi detached houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
+<p>Some of the data has structure. Why? The sensor is in a street of 1930s semi detached houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
 
 <h3>Development Notes</h3>
-The hardware is a Senselife CAM desktop indoor air quality meter, connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
-A Python program processes the data to produce CSV files for the graphs and table, and Json for statistics. The graphs and table are produced using 
-Google's Visualisation API and Json rendered using Handlebars. CSV and Json files are coied to a Google storage bucket. 
+The hardware is a Senselife CAM desktop indoor air quality meter connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
+<p>
+A batch file copies daily CSV files, produced by the logging software, into one file which is processed to produce a CSV file for each graph, which are then copied to a publicly visible Cloud Storage bucket. 
+<p>
+The graphs and the outages table (below) are rendered with Google's Visualisation API, inline. Statistics shown as text, and the sensor's location and rendered using JSON & Handlebars. 
 
 <p>Daily readings are padded with a value of 420 to 23:59 so it can be visually compared with the previous day.
 <p>
-I tried getting the Windows logging software to run on Linux, but didn't get past the logging software freezing after returning the first value.
-Its likely a handshaking issue. Its running on Windows 7.
-<p>
+
 A CORS problem accessing https://storage.googleapis.com/uk_bn3_co2/ from Github was bypassed using https://bypasscors.herokuapp.com/. 
 <p>
 
