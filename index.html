@@ -16,7 +16,7 @@
 Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
 		}
-.smaller {font-size:x-small;}
+.smaller {font-size:small;}
 .page_orientation.smaller {font-size:x-small;}
 .chart {width: 100%;
 		background: white'
@@ -27,8 +27,8 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 @media (min-width: 800px) {
 		.smaller {	font-size:small;}
 		.chart 	{	width: 100%;
-					background: yellow;
-					border: 5px solid green;}
+					background: white;
+					border: 5px solid white;}
 		.medium_size {font-size:small}
 		}
 @media screen and (orientation: portrait) {div {background-color: white;}
@@ -40,8 +40,8 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 											.page_orientation span { display: none;}
 											.page_orientation:after {content: 'in Landscape display mode';}
 											.chart 	{	width: 98%;
-														background: brown;
-														border: 5px solid blue;}
+														background: white;
+														border: 5px solid white;}
 											}
 
  </style>
@@ -291,7 +291,7 @@ google.setOnLoadCallback(drawVisualization)
 
 <h3>About</h3>
 Readings are taken every 10 minutes. 
-<p>Some of the data has structure. Why? The sensor is in a street of 1930s semi detached houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
+<p>Some of the data has structure. Why? The sensor is in a street of 1920s houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
 
 <h3>Development Notes</h3>
 The hardware is a Senselife CAM desktop indoor air quality meter connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
@@ -315,7 +315,7 @@ Source code is here: <a href="https://github.com/conwasa/CO2_play">github.com/co
 <a class="twitter-timeline" data-width="450" data-height="200" data-theme="dark" href="https://twitter.com/Bn3Co2?ref_src=twsrc%5Etfw">Tweets by Bn3Co2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h3>To Do List</h3>
 <ul>
-<li>Add calls to Twitter API, tweet 'record high/low/etc </li>
+<li>Add calls to Twitter API, tweet record high/low/etc </li>
 <li>Add 30 day moving average with graph</li> 
 <li>Add controls to page back and forth through the graphs, reduce their number</li>
 <li>Move to Linux laptop that runs 24x7</li>

@@ -12,13 +12,6 @@ import io   # for utf-8 encoding
 #import subprocess
 from sys     import stderr
 
-#print '<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'  
-#print 'parms passed to find_pips_v3.py:'
-#print '$1=', sys.argv[1] 
-#print '$2=', sys.argv[2]
-#print '$3=', sys.argv[3]
-#print '$4=', sys.argv[4]
-#print '<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'  
 
 # Python program to print from https://www.geeksforgeeks.org/print-colors-python-terminal/ 
 # colored text and background 
@@ -35,9 +28,6 @@ def prInverse(skk): 	print(u"\033[7m {}\033[00m" .format(skk)),
 def prBold(skk): 		print(u"\033[1m {}\033[00m" .format(skk)), 
 
 
-#    underline='\033[04m'
-#    reverse='\033[07m'
-#    strikethrough='\033[09m'
 
 def prUnderline(skk): 				print(u"\033[04m {}\033[00m" .format(skk)), 
 def prStrikethrough(skk): 			print(u"\033[09m {}\033[00Access_token_secretm" .format(skk)), 
@@ -104,8 +94,16 @@ print (api.VerifyCredentials())
 
 line1_clean = line1.replace('&nbsp;','').replace(':',': ')
 
-message = "Outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+if last_reading	== lowest_reading:
+	message = "Record low outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Lowest value rreorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+	print (message)
+
+elif last_reading	== highest_reading:
+	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+	print (message)
+else:
+	message = "Outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
 post_update = api.PostUpdates(status=message)
 print (message)
 			
-	
+
