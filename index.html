@@ -8,12 +8,16 @@
  <meta name="HandheldFriendly" content="True">
  <meta name="MobileOptimized" content="320">
  <meta http-equiv="refresh" content="600">
+ <!--
+ CSV graphs based on Enrico Spinielli’s Block 8d106a5cf9aa99734d43 
+ http://bl.ocks.org/espinielli/8d106a5cf9aa99734d43
+ -->
  <style>
 Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
 		}
 .smaller {font-size:x-small;}
-.page_orientation.smaller {font-size:xx-small;}
+.page_orientation.smaller {font-size:x-small;}
 .chart {width: 100%;
 		background: white'
 		margin-left: 0px}
@@ -194,7 +198,7 @@ function drawVisualization() {
          options:{
             width: '100%', height: 160,
             hAxis: {slantedText: false},
-			title: "all historic readings",
+			title: "all readings since 15 November 2018",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 11},
          }
@@ -234,6 +238,7 @@ function drawVisualization() {
 	  var H1_location_template = Handlebars.compile(H1_location);
 	  var H1_location_html = H1_location_template(data1)
 	  document.getElementById("heading_H1").innerHTML += H1_location_html  
+	  document.getElementById("sensor_location").innerHTML += H1_location_html  
 
 	  var latest_co2_readings = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
 	  var latest_co2_readings_template = Handlebars.compile(latest_co2_readings);
@@ -291,19 +296,27 @@ Readings are taken every 10 minutes.
 <h3>Development Notes</h3>
 The hardware is a Senselife CAM desktop indoor air quality meter connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
 <p>
-Back-end: A batch file copies daily CSV files, produced by the logging software, into one file which is processed to produce a CSV file for each graph, which are then copied to a publicly visible Cloud Storage bucket. 
+Back-end: A batch file copies daily CSV files, produced by the logging software, into one file which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
 <p>
-Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics shown as text, and the sensor's location ()are rendered using JSON & Handlebars. 
+Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using JSON & Handlebars. 
 
-<p>Todays readings are padded with a value of 420 to 23:59 so it can be visually compared with the previous day.
+<p>Todays readings are padded with a low value to 23:59 so the graph covers a complete date.
 <p>
 
 A CORS problem accessing https://storage.googleapis.com/uk_bn3_co2/ from Github was bypassed using https://bypasscors.herokuapp.com/. 
 <p>
+Source code is here: <a href="https://github.com/conwasa/CO2_play">github.com/conwasa/CO2_play</a> the scripts are:
+
+<p><ul>
+<li>process_CO2_data.bat&nbsp;&nbsp;&nbsp;Windows/DOS script to copy files and run programs process_csv.py and tweet.py every 10 minutes</li>
+<li>process_csv.py&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python script to create CSV files use by this HTML</li>
+<li>tweet.py&nbsp;&nbsp;&nbsp;Twitter Bot for this page</li>
+</ul>
 
 <h3>To Do List</h3>
 <ul>
 <li>Add calls to Twitter API, tweet 'record high/low/etc </li>
+<li>Add 30 day moving average with graph</li> 
 <li>Add controls to page back and forth through the graphs, reduce their number</li>
 <li>Move to Linux laptop that runs 24x7</li>
 <li>Add local outdoor temperature logging</li>

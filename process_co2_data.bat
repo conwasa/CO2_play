@@ -1,4 +1,5 @@
-dowload_descriptiontware\2018\11\*.csv |find "20" > all_readings.csv |find "20"
+:start
+type C:\user\SenselifeCamSoftware\2018\11\*.csv |find "20" > all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2018\12\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\01\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\02\*.csv |find "20" >> all_readings.csv |find "20"
@@ -12,7 +13,10 @@ type C:\user\SenselifeCamSoftware\2019\09\*.csv |find "20" >> all_readings.csv |
 type C:\user\SenselifeCamSoftware\2019\10\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\11\*.csv |find "20" >> all_readings.csv |find "20"
 type C:\user\SenselifeCamSoftware\2019\12\*.csv |find "20" >> all_readings.csv |find "20"
+
+copy stats.json prev_stats.json
 python process_csv.py
+python tweet.py
 
 gsutil cp outages.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 gsutil cp todays_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%

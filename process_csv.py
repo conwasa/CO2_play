@@ -46,8 +46,6 @@ def prBoldUnderline(skk): 			print(u"\033[1m\033[04m {}\033[00m" .format(skk)),
 def prInverseStrikethrough(skk):	print(u"\033[7m\033[09m {}\033[00m" .format(skk)), 
 def prInverseUnderline(skk): 		print(u"\033[7m\033[04m {}\033[00m" .format(skk)), 
 
-
-
 def read_csv_file():
 #	with open(filename, mode="r", encoding="utf-8") as json_data:
 	with open('all_readings.csv', 'rt') as all_data_file:
@@ -111,7 +109,7 @@ def write_outage_csv(list1):
 			last_record_datetime = record_datetime
 		return(last_outage_text)
 			
-def write_stats(list1, last_outage_text):
+def write_stats(list1):
 	lowest_reading 	= '999'
 	latest_reading 	= '000'
 	highest_reading = '000'
@@ -132,32 +130,57 @@ def write_stats(list1, last_outage_text):
 	file_size_f = str(file_size)	+ ' kB'
 	dl_file_text = num_records_f + ' records, ' + file_size_f  
 	
-	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + 'ppm at ' + list1[-1][1] + ' on ' + last_record_datetime.strftime("%A") + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
-	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + 'ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' on ' + lowest_reading_datetime.strftime("%A") + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
-	line3 = 'highest reading:&nbsp;' + highest_reading + 'ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' on ' + highest_reading_datetime.strftime("%A") + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
+	padded_dow = { 	"Monday" 		: "Monday&nbsp;&nbsp;&nbsp;",
+					"Tuesday" 		: "Tuesday&nbsp;&nbsp;",	
+					"Wednesday" 	: "Wednesday",	
+					"Thursday" 		: "Thursday&nbsp;",	
+					"Friday" 		: "Friday&nbsp;&nbsp;&nbsp;",	
+					"Saturday" 		: "Saturday&nbsp; ",	
+					"Sunday" 		: "Sunday&nbsp;&nbsp;&nbsp;"
+				}
+	
+	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + 'ppm at ' + list1[-1][1] + ' on ' + padded_dow[last_record_datetime.strftime("%A")] + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
+	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + 'ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' on ' + padded_dow[lowest_reading_datetime.strftime("%A")] + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
+	line3 = 'highest reading:&nbsp;' + highest_reading + 'ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' on ' + padded_dow[highest_reading_datetime.strftime("%A")] + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
+		
 	stats_dict = {	'line1' : line1,
 					'line2' : line2,
 					'line3' : line3,
-					'site_location' : 'Brighton England UK BN3',
-					'dl_file_text' : dl_file_text }
+					'site_location' : 'Brighton England',
+					'dl_file_text' : dl_file_text,
+					'last_reading' : list1[-1][2],
+					'lowest_reading' : lowest_reading,
+					'highest_reading' : highest_reading,
+					}
 	
-	print (stats_dict)
+#	print (stats_dict)
 	with open('stats.json', 'w') as write_file:
 		json.dump(stats_dict, write_file, indent=2) 
 
 def	pad_rest_of_day_with_zeros(list1):
 
 	list2 = list1.copy()
+	
+	lowest_reading = '999'
+	for i in range (0, len(list1), 1):
+		if  list1[i][1] < lowest_reading:   # these are strings not numbers
+			lowest_reading = list1[i][1]
 		
-	last_record_datetime = datetime.datetime.fromisoformat(list1[-1][0] + ' ' + list1[-1][1])
+	padding_value = str((int(int(lowest_reading)/10))*10)
+	print (lowest_reading)
+	print ('padding_value')
+	print (padding_value)
+	
+	
+	last_record_datetime = datetime.datetime.fromisoformat('2018-01-01 ' + list1[-1][0])
 	end_of_day = last_record_datetime.replace(hour=23).replace(minute=59)
 	
 	next_ts = last_record_datetime + timedelta(minutes=10)
 	while next_ts < end_of_day:
-		list2.append([str(next_ts.date()), str(next_ts.time())[:-3], 420])
+		list2.append([str(next_ts.time())[:-3], padding_value])
 		next_ts = next_ts +   timedelta(minutes=10) 
 	return(list2)	
-		
+	
 # MAIN SECTION
 
 list1=read_csv_file()
@@ -165,11 +188,12 @@ list1=read_csv_file()
 list1.sort(key=lambda x: x[0:1])
 #list1=sorted(list1)
 
-list2=pad_rest_of_day_with_zeros(list1)
-
 todays_date=datetime.date.isoformat(datetime.date.today())
-todays_readings=get_subset(list2, todays_date, todays_date, 1)
-write_subset(todays_readings, 'todays_readings.csv', ['time','co2_ppm'])
+todays_readings=get_subset(list1, todays_date, todays_date, 1)
+todays_readings_padded_to_2359=pad_rest_of_day_with_zeros(todays_readings)
+
+
+write_subset(todays_readings_padded_to_2359, 'todays_readings.csv', ['time','co2_ppm'])
 
 yesterdays_date=datetime.date.isoformat(datetime.date.today() - timedelta(days=1))
 yesterdays_readings=get_subset(list1, yesterdays_date, yesterdays_date, 1)
@@ -201,15 +225,14 @@ write_subset(week_before_lasts_readings, 'week_before_lasts_readings.csv', ['day
 
 end_of_last_month=datetime.date.today().replace(day=1) - datetime.timedelta (days = 1)
 start_of_last_month=end_of_last_month.replace(day=1)
-last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'month')
-#last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
+last_months_readings=get_subset(list1, str(start_of_last_month), str(end_of_last_month), 'day_of_month')
 write_subset(last_months_readings, 'last_months_readings.csv', ['day','co2_ppm'])
 
 all_historic_readings=get_subset(list1, '2018-11-15', '2999-12-31', 'month')
 write_subset(all_historic_readings, 'all_historic_readings.csv', ['month','co2_ppm'])
 
 outage_text=write_outage_csv(list1)
-write_stats(list1, outage_text)
+write_stats(list1)
 
 print ("Current year: ", datetime.date.today().strftime("%Y"))
 print ("Month of year: ", datetime.date.today().strftime("%m"))
