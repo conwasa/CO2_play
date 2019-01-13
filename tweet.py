@@ -94,18 +94,22 @@ print (api.VerifyCredentials())
 
 line1_clean = line1.replace('&nbsp;','').replace(':',': ')
 
+
 if last_reading	== lowest_reading:
-	message = "Record low outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". This is the lowest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + line1_clean[12:] + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
 	print (message)
 
 elif last_reading	== highest_reading:
 	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
-	print (message)
 else:
 	message = "Outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ \n#CO2"
-
+	
+	
+	
+	
 try:
-	post_update = api.PostUpdates(status=message)
+	print ('null')
+#	post_update = api.PostUpdates(status=message)
 except Exception as e:
 	prYellow('tweet.py: twitter error')
 	prYellow('twitter.error.TwitterError')
@@ -115,4 +119,5 @@ except Exception as e:
 	sys.exit()
 	# [{'code': 326, 'message': 'To protect our users from spam and other malicious activity, this account is temporarily locked. 
 	#Please log in to https://twitter.com to unlock your account.'}		
+print (message)
 

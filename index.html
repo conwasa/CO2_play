@@ -97,15 +97,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
     + "<br>";
 },"useData":true});
 })();
-
-
 	
-	
-	
-	
-	
-	
-//   $.get("todays_readings.csv", function(csvString) {
    $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
@@ -275,32 +267,16 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       // Action to be performed when the document is read;
 	  console.log('ready state good');
  	  data1 = JSON.parse(ourRequest.responseText); /* made into a global variable for debugging */
-
-//	  var H1_location = "{{{site_location}}}";
-//	  var H1_location_template = Handlebars.compile(H1_location);
-//	  var H1_location_html = H1_location_template(data1)
-//	  var template = Handlebars.templates['location'],
-//	      context = location(data1),
-//	      H1_location_html = template(context) 
-
-//	  var H1_location = Handlebars.templates['location'];
-//	  var H1_location_template = Handlebars.compile(H1_location);
 	  var H1_location_html = Handlebars.templates['location'](data1)
 
 	  document.getElementById("heading_H1").innerHTML += H1_location_html  
 	  document.getElementById("sensor_location").innerHTML += H1_location_html  
 
-//	  var latest_co2_readings = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
-//	  var latest_co2_readings_template = Handlebars.compile(latest_co2_readings);
 	  var latest_co2_readings_html = Handlebars.templates['latest_co2_readings'](data1)
 	  document.getElementById("page_start").innerHTML += latest_co2_readings_html  
 
-//	  var download_description = "  {{{dl_file_text}}}";
-//	  var download_description_template = Handlebars.compile(download_description);
 	  var download_description_html = Handlebars.templates['download_description'](data1)
 	  document.getElementById("dl_description").innerHTML += download_description_html  
-
-
 
     } else {
 	   console.log('readyState=' + this.readyState + ' status=' +this.status);
@@ -344,7 +320,7 @@ Readings are taken every 10 minutes.
 <p>Some of the data has structure. Why? The sensor is in a street of 1920s houses with one or two cars per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
 
 <h3>Development Notes</h3>
-The hardware is a Senselife CAM desktop indoor air quality meter connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
+The hardware is a consumer level indoor air quality meter in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
 <p>
 Back-end: A batch file copies daily CSV files, produced by the logging software, into one file which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
 <p>
