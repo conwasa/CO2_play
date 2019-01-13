@@ -8,6 +8,7 @@
  <meta name="HandheldFriendly" content="True">
  <meta name="MobileOptimized" content="320">
  <meta http-equiv="refresh" content="600">
+ 
  <!--
  CSV graphs based on Enrico Spinielli’s Block 8d106a5cf9aa99734d43 
  http://bl.ocks.org/espinielli/8d106a5cf9aa99734d43
@@ -16,7 +17,7 @@
 Body { 	font-family: "Lucida Console", Monaco, monospace;
 		font-size:small;
 		}
-.smaller {font-size:small;}
+.smaller {font-size:x-small;}
 .page_orientation.smaller {font-size:x-small;}
 .chart {width: 100%;
 		background: white'
@@ -49,8 +50,10 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
  <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
  <meta name="description" content="UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm">
  
- <script src="handlebars-v4.0.11.js"></script>
-
+<!--- <script src="handlebars-v4.0.11.js"></script> -->
+ 
+<script src="handlebars.runtime-v4.0.12.js"></script>
+ 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -61,8 +64,47 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 
 <script type="text/javascript">
 function drawVisualization() {
-	var graph_width2 = 111
 
+
+ 
+ (function() { 
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['location'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return ((stack1 = ((helper = (helper = helpers.site_location || (depth0 != null ? depth0.site_location : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"site_location","hash":{},"data":data}) : helper))) != null ? stack1 : "");
+},"useData":true});
+})();
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['download_description'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper;
+
+  return "  "
+    + ((stack1 = ((helper = (helper = helpers.dl_file_text || (depth0 != null ? depth0.dl_file_text : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"dl_file_text","hash":{},"data":data}) : helper))) != null ? stack1 : "");
+},"useData":true});
+})();
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+
+  return ((stack1 = ((helper = (helper = helpers.line1 || (depth0 != null ? depth0.line1 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"line1","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "<br>"
+    + ((stack1 = ((helper = (helper = helpers.line2 || (depth0 != null ? depth0.line2 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"line2","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "<br>"
+    + ((stack1 = ((helper = (helper = helpers.line3 || (depth0 != null ? depth0.line3 : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"line3","hash":{},"data":data}) : helper))) != null ? stack1 : "")
+    + "<br>";
+},"useData":true});
+})();
+
+
+	
+	
+	
+	
+	
+	
 //   $.get("todays_readings.csv", function(csvString) {
    $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
@@ -217,7 +259,7 @@ function drawVisualization() {
          dataTable: data,
          options:{
             width: 300, height: 300,
-            title: "outages",
+            title: "data outages",
 			legend: 'left',
             titleTextStyle : {color: 'grey', fontSize: 8},
          }
@@ -234,20 +276,28 @@ function drawVisualization() {
 	  console.log('ready state good');
  	  data1 = JSON.parse(ourRequest.responseText); /* made into a global variable for debugging */
 
-	  var H1_location = "{{{site_location}}}";
-	  var H1_location_template = Handlebars.compile(H1_location);
-	  var H1_location_html = H1_location_template(data1)
+//	  var H1_location = "{{{site_location}}}";
+//	  var H1_location_template = Handlebars.compile(H1_location);
+//	  var H1_location_html = H1_location_template(data1)
+//	  var template = Handlebars.templates['location'],
+//	      context = location(data1),
+//	      H1_location_html = template(context) 
+
+//	  var H1_location = Handlebars.templates['location'];
+//	  var H1_location_template = Handlebars.compile(H1_location);
+	  var H1_location_html = Handlebars.templates['location'](data1)
+
 	  document.getElementById("heading_H1").innerHTML += H1_location_html  
 	  document.getElementById("sensor_location").innerHTML += H1_location_html  
 
-	  var latest_co2_readings = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
-	  var latest_co2_readings_template = Handlebars.compile(latest_co2_readings);
-	  var latest_co2_readings_html = latest_co2_readings_template(data1)
+//	  var latest_co2_readings = "{{{line1}}}<br>{{{line2}}}<br>{{{line3}}}<br>";
+//	  var latest_co2_readings_template = Handlebars.compile(latest_co2_readings);
+	  var latest_co2_readings_html = Handlebars.templates['latest_co2_readings'](data1)
 	  document.getElementById("page_start").innerHTML += latest_co2_readings_html  
 
-	  var download_description = "  {{{dl_file_text}}}";
-	  var download_description_template = Handlebars.compile(download_description);
-	  var download_description_html = download_description_template(data1)
+//	  var download_description = "  {{{dl_file_text}}}";
+//	  var download_description_template = Handlebars.compile(download_description);
+	  var download_description_html = Handlebars.templates['download_description'](data1)
 	  document.getElementById("dl_description").innerHTML += download_description_html  
 
 
