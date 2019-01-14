@@ -18,9 +18,9 @@ copy stats.json prev_stats.json
 python process_csv.py
 python tweet.py
 
-gsutil cp outages.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
-gsutil cp todays_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
-gsutil cp stats.json gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
+gsutil -m cp outages.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
+gsutil -m cp todays_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
+gsutil -m cp stats.json gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 
 set hour=%time:~0,2%
 

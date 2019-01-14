@@ -322,7 +322,7 @@ Readings are taken every 10 minutes.
 <h3>Development Notes</h3>
 The hardware is a consumer level indoor air quality meter in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
 <p>
-Back-end: A batch file copies daily CSV files, produced by the logging software, into one file which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
+Back-end: A batch file copies daily CSV files, produced by proprietary logging software, into one file which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
 <p>
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using JSON & Handlebars. 
 
@@ -331,7 +331,7 @@ Front-end: The graphs and the outages table (below) are rendered with Google's V
 
 A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2/">storage.googleapis.com/uk_bn3_co2/</a> from Github was bypassed using <a href="https://bypasscors.herokuapp.com/">bypasscors.herokuapp.com</a> 
 <p>
-Source code is here: <a href="https://github.com/conwasa/CO2_play">github.com/conwasa/CO2_play</a> the scripts are:
+Source code is here: <a href="https://github.com/conwasa/CO2_play">github.com/conwasa/CO2_play</a>.  the scripts are :
 
 <p><ul>
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/process_co2_data.bat">process_CO2_data.bat</a>&nbsp;&nbsp;&nbsp;Windows/DOS script to copy files and run programs process_csv.py and tweet.py every 10 minutes</li>

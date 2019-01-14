@@ -109,7 +109,7 @@ else:
 	
 try:
 	print ('null')
-#	post_update = api.PostUpdates(status=message)
+	post_update = api.PostUpdates(status=message)
 except Exception as e:
 	prYellow('tweet.py: twitter error')
 	prYellow('twitter.error.TwitterError')
