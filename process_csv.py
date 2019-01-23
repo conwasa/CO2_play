@@ -66,7 +66,7 @@ def get_subset(list, start_date, end_date, y_value):
 			if y_value == 'day_of_week':
 				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%a"))
 			elif y_value == 'day_of_month':
-				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%d"))
+				row.append('d' + str(datetime.date.fromisoformat(list[i][0]).strftime("%d")))  # prefix with 'd' so Google API doesn't treat as a number, as tht results in a smoothed line graph 
 			elif y_value == 'month':
 				row.append(datetime.date.fromisoformat(list[i][0]).strftime("%b"))
 			else:
@@ -146,6 +146,7 @@ def write_stats(list1):
 	stats_dict = {	'line1' : line1,
 					'line2' : line2,
 					'line3' : line3,
+					'last_reading_datetime' : str(last_record_datetime),
 					'site_location' : 'Brighton England',
 					'dl_file_text' : dl_file_text,
 					'last_reading' : list1[-1][2],

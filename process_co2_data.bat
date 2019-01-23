@@ -25,7 +25,7 @@ gsutil -m cp stats.json gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 set hour=%time:~0,2%
 
 IF NOT EXIST done_daily_copy_flag.txt (
-IF "%hour%" == "00" (
+IF "%hour%" == " 0" (
 echo "copy all files"
 gsutil cp all_historic_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
 gsutil cp all_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorlevel%
@@ -37,10 +37,11 @@ gsutil cp yesterdays_readings.csv gs://uk_bn3_co2 | echo Exit Code is %errorleve
 copy flag.txt done_daily_copy_flag.txt
 ))
 
-IF "%hour%" == "01" (
+IF "%hour%" == " 1" (
 del done_daily_copy_flag.txt
 echo "flag file deleted"
 )
+python monitor_sensor_connection.py
 echo %time%
 rem Script take 70s to run
 echo "start timeout"
