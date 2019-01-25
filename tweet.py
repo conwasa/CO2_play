@@ -92,21 +92,17 @@ print (api.VerifyCredentials())
 #message = "Hello World! Lets try some ways to get a subscript '2': unicode:" + u"\u2082" + " and the html entity: 	&#8322;" 
 #post_update = api.PostUpdates(status=message)
 
-line1_clean = line1.replace('&nbsp;','').replace(':',': ')
-
+line1_clean = line1.replace('&nbsp;','').replace('reading:','reading: ')
 
 if last_reading	== lowest_reading:
-	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + line1_clean[12:] + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+	message = "Record low outdoor CO" + u"\u2082" + " at " + str(site_location) + line1_clean[12:] + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
 	print (message)
 
 elif last_reading	== highest_reading:
-	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + line1_clean[12:] + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
 else:
 	message = "Outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ \n#CO2"
-	
-	
-	
-	
+
 try:
 	print ('null')
 	post_update = api.PostUpdates(status=message)
