@@ -55,9 +55,10 @@ except IOError:
 	sys.exit()
 
 last_reading_datetime_dt = datetime.datetime.fromisoformat(last_reading_datetime)
-a15_minutes_ago = datetime.datetime.now() - timedelta(minutes=15)
+a15_minutes_ago = datetime.datetime.now() - timedelta(minutes=29)
+print ('time now=' + str(datetime.datetime.now()))
 print ('last_reading_datetime=' + str(last_reading_datetime))
-print ('12 minutes ago=       ' + str(a15_minutes_ago))
+print ('15 minutes ago=       ' + str(a15_minutes_ago))
 
 if last_reading_datetime_dt < a15_minutes_ago:
 	shell_string = '"C:\Program Files\VideoLAN\VLC\vlc.exe" --loop morse_CO2.mp3'

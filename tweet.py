@@ -103,6 +103,8 @@ elif last_reading	== highest_reading:
 else:
 	message = "Outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ \n#CO2"
 
+#message = "Record low outdoor CO" + u"\u2082" + " at " + str(site_location) + ': 389ppm at 01:59 on Sunday 27 Jan 2019' + ". This is the lowest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
+
 try:
 	print ('null')
 	post_update = api.PostUpdates(status=message)

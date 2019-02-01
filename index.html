@@ -322,7 +322,7 @@ Readings are taken every 10 minutes.
 <h3>Development Notes</h3>
 The hardware is a <a href="http://www.conwasa.demon.co.uk/SL/senselife/SenseLife_CAM_CO2_Monitor_description_and_specification.pdf"  target="_blank">consumer level indoor air quality meter</a>  (precision: ±75ppm + 5% of measured value) in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
 <p>
-Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by proprietary logging software, into one file which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
+Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by proprietary logging software into one file, which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
 <p>
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using JSON & Handlebars. 
 
@@ -343,6 +343,7 @@ Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_bla
 <a class="twitter-timeline" data-width="450" data-height="200" data-theme="dark" href="https://twitter.com/Bn3Co2?ref_src=twsrc%5Etfw">Tweets by Bn3Co2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h3>To Do List</h3>
 <ul>
+<li>Add 5% error bars to the graphs</li>
 <li>Add calls to Telegram and Facebook APIs </li>
 <li>add CSS styling for the list of scripts</li>
 <li>Add 30 day moving average with graph</li> 
