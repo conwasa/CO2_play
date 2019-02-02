@@ -313,7 +313,7 @@ google.setOnLoadCallback(drawVisualization)
 
 <div id="chart_6" class="chart"></div>
 <p>
-<div id="dl_description"><a href="all_readings.csv" download>Download data</a></div>
+<div id="dl_description"><a href="https://storage.googleapis.com/uk_bn3_co2/all_readings.csv">Download data</a></div>
 
 <h3>About</h3>
 Readings are taken every 10 minutes. 
@@ -326,7 +326,7 @@ Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by pro
 <p>
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using JSON & Handlebars. 
 
-<p>Today's readings are padded with a low value to 23:59 to make the graph cover a whole date.
+<p>Today's readings are padded with a low value to 23:59 to make the graph cover a whole day.
 <p>
 
 A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2/"  target="_blank">storage.googleapis.com/uk_bn3_co2/</a> from Github was bypassed using <a href="https://bypasscors.herokuapp.com/"  target="_blank">bypasscors.herokuapp.com</a> 
