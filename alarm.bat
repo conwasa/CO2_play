@@ -1,0 +1,1 @@
+"C:\Program Files\VideoLAN\VLC\vlc.exe" --loop morse_CO2.mp3
