@@ -110,14 +110,14 @@ def write_outage_csv(list1):
 		return(last_outage_text)
 			
 def write_stats(list1):
-	lowest_reading 	= '999'
+	lowest_reading 	= 99999
 	latest_reading 	= '000'
 	highest_reading = '000'
 	last_record_datetime = datetime.datetime.fromisoformat(list1[-1][0] + ' ' + list1[-1][1])
 	
 	for i in range (0, len(list1), 1):
-		if  list1[i][2] < lowest_reading:   # these are strings not numbers
-			lowest_reading = list1[i][2]
+		if  int(list1[i][2]) < lowest_reading:   # string comparison worked up to 999
+			lowest_reading = int(list1[i][2])
 			lowest_reading_datetime = datetime.datetime.fromisoformat(list1[i][0] + ' ' + list1[i][1])
 		if  list1[i][2] > highest_reading:   # these are strings not numbers
 			highest_reading = list1[i][2]
@@ -140,7 +140,7 @@ def write_stats(list1):
 				}
 	
 	line1 = 'last reading:&nbsp;&nbsp;&nbsp;&nbsp;' + list1[-1][2] + 'ppm at ' + list1[-1][1] + ' on ' + padded_dow[last_record_datetime.strftime("%A")] + ' ' + last_record_datetime.strftime("%d") + ' ' + last_record_datetime.strftime("%b") + ' ' + last_record_datetime.strftime("%Y") 
-	line2 = 'lowest reading:&nbsp;&nbsp;' + lowest_reading + 'ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' on ' + padded_dow[lowest_reading_datetime.strftime("%A")] + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
+	line2 = 'lowest reading:&nbsp;&nbsp;' + str(lowest_reading) + 'ppm at ' +  lowest_reading_datetime.strftime("%H") + ':' + lowest_reading_datetime.strftime("%M") + ' on ' + padded_dow[lowest_reading_datetime.strftime("%A")] + ' ' + lowest_reading_datetime.strftime("%d") + ' ' + lowest_reading_datetime.strftime("%b") + ' ' + lowest_reading_datetime.strftime("%Y")
 	line3 = 'highest reading:&nbsp;' + highest_reading + 'ppm at ' +  highest_reading_datetime.strftime("%H") + ':' + highest_reading_datetime.strftime("%M") + ' on ' + padded_dow[highest_reading_datetime.strftime("%A")] + ' ' + highest_reading_datetime.strftime("%d") + ' ' + highest_reading_datetime.strftime("%b") + ' ' + highest_reading_datetime.strftime("%Y")
 		
 	stats_dict = {	'line1' : line1,
@@ -150,7 +150,7 @@ def write_stats(list1):
 					'site_location' : 'Brighton England',
 					'dl_file_text' : dl_file_text,
 					'last_reading' : list1[-1][2],
-					'lowest_reading' : lowest_reading,
+					'lowest_reading' : str(lowest_reading),
 					'highest_reading' : highest_reading,
 					}
 	
@@ -172,6 +172,7 @@ def	pad_rest_of_day_with_zeros(list1):
 	print ('padding_value')
 	print (padding_value)
 	
+	print (list1)
 	
 	last_record_datetime = datetime.datetime.fromisoformat('2018-01-01 ' + list1[-1][0])
 	end_of_day = last_record_datetime.replace(hour=23).replace(minute=59)

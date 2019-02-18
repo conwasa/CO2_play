@@ -6,7 +6,6 @@ import sys
 import time
 import datetime
 from datetime import timedelta
-import twitter
 
 import io   # for utf-8 encoding
 import subprocess
@@ -62,6 +61,6 @@ print ('15 minutes ago=       ' + str(a15_minutes_ago))
 
 if last_reading_datetime_dt < a15_minutes_ago:
 	shell_string = '"C:\Program Files\VideoLAN\VLC\vlc.exe" --loop morse_CO2.mp3'
-	shell_string = 'alarm.bat'
+	shell_string = './alarm.sh'
 
 	subprocess.call([shell_string], shell = True)	
