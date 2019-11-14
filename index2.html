@@ -45,6 +45,8 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
 														border: 5px solid white;}
 											}
 
+
+#myAnswer {display: none}
  </style>
  
  <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
@@ -62,10 +64,15 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
   google.load('visualization', '1', { packages: ['corechart', 'controls'] });
 </script>
 
+<script>
+function showAnswer() {
+  document.getElementById("myAnswer").style.display = "block";
+  document.getElementById("showButton").style.display = "none";
+  
+}
+</script>
 <script type="text/javascript">
 function drawVisualization() {
-
-
  
  (function() { 
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
@@ -98,7 +105,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
 },"useData":true});
 })();
 	
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -118,7 +125,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_1.draw();
    });
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/yesterdays_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/yesterdays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -138,7 +145,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_3.draw();
    });
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/day_befores_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/day_befores_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -158,7 +165,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_2.draw();
    });
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/last_weeks_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/last_weeks_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -178,7 +185,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_4.draw();
    });
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/week_before_lasts_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/week_before_lasts_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -199,7 +206,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
    });
 
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional 
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -220,7 +227,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
    });
 
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/all_historic_readings.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/all_historic_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -240,7 +247,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_6.draw();
    });
 
-   $.get("https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/outages.csv", function(csvString) {
+   $.get("https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/outages.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -260,8 +267,8 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
    });
 
 	var ourRequest = new XMLHttpRequest();
-	var URL = 'https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/stats.json';
-  ourRequest.open('GET', 'https://bypasscors.herokuapp.com/api/?url=https://storage.googleapis.com/uk_bn3_co2/stats.json');
+	var URL = 'https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/stats.json';
+  ourRequest.open('GET', 'https://cors.x7.workers.dev/https://storage.googleapis.com/uk_bn3_co2/stats.json');
   ourRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       // Action to be performed when the document is read;
@@ -318,18 +325,24 @@ google.setOnLoadCallback(drawVisualization)
 <h3>About</h3>
 Readings are taken every 10 minutes. 
 <p>Some of the data has structure. Why? The sensor is in a street of 1920s houses with one or two cars or vans per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
+ <button onclick="showAnswer()" id="showButton">Click here for my answer</button>
+
+<div id="myAnswer">
+<h3>Why are there spikes in the data?</h3>
+  The houses were fitted with central heating boilers in the 1970s. The boilers vent through the walls at ground level and mostly run on timers to burn twice a day. That causes the spikes. 
+  The CO<sub>2</sub> blows away when its windy, resulting in periods without spikes. 
+</div> 
 
 <h3>Development Notes</h3>
 The hardware is a <a href="http://www.conwasa.demon.co.uk/SL/senselife/SenseLife_CAM_CO2_Monitor_description_and_specification.pdf"  target="_blank">consumer level indoor air quality meter</a>  (precision: ±75ppm + 5% of measured value) in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
 <p>
 Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by proprietary logging software into one file, which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
-<p>
-Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using JSON & Handlebars. 
+The backend was developed on a Windows 7 laptop and ran there from November 2018 to February 2019, when it was moved to a stable "production" laptop running Linux Debian 9.
 
-<p>Today's readings are padded with a low value to 23:59 to make the graph cover a whole day.
-<p>
+<p>	
+Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using Handlebars. 
+A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2/"  target="_blank">storage.googleapis.com/uk_bn3_co2/</a> from Github was bypassed using <a href="https://bypasscors.herokuapp.com/"  target="_blank">bypasscors.herokuapp.com</a>.  
 
-A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2/"  target="_blank">storage.googleapis.com/uk_bn3_co2/</a> from Github was bypassed using <a href="https://bypasscors.herokuapp.com/"  target="_blank">bypasscors.herokuapp.com</a> 
 <p>
 Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_blank">github.com/conwasa/CO2_play</a>.  The scripts are:
 
@@ -339,6 +352,8 @@ Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_bla
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/tweet.py" target="_blank">tweet.py</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter Bot for this page</li>
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/monitor_sensor_connection.py" target="_blank">monitor_sensor_connection.py</a>&nbsp;sounds an alarm if data older than 15 minutes</li>
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/alarm.bat" target="_blank">alarm.bat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plays morse_CO2.mp3 in a loop</li>
+<li><a href="https://github.com/conwasa/CO2_play/blob/master/process_co2_data.sh"  target="_blank">process_co2_data.sh</a>&nbsp;&nbsp;&nbsp;&nbsp;shell script version</li>
+<li><a href="https://github.com/conwasa/CO2_play/blob/master/alarm.sh" target="_blank">alarm.sh</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</li>
 </ul>
 <a class="twitter-timeline" data-width="450" data-height="200" data-theme="dark" href="https://twitter.com/Bn3Co2?ref_src=twsrc%5Etfw">Tweets by Bn3Co2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h3>To Do List</h3>
@@ -347,8 +362,8 @@ Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_bla
 <li>Add calls to Telegram and Facebook APIs </li>
 <li>add CSS styling for the list of scripts</li>
 <li>Add 30 day moving average with graph</li> 
+<li>Replace historic graphs with graphic file equivalents created overnight</li> 
 <li>Add controls to page back and forth through the graphs, reduce their number</li>
-<li>Move backend to Linux laptop that runs 24x7</li>
 <li>Add local outdoor temperature logging</li>
 <li>Add a second CO&#8322 sensor  in the same enclosure to check precision</li>
 <li>Add traffic flow on the Old Shoreham Road, probably from Google Maps API</li>
