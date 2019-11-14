@@ -101,7 +101,7 @@ if last_reading	== lowest_reading:
 elif last_reading	== highest_reading:
 	message = "Record high outdoor CO" + u"\u2082" + " at " + str(site_location) + line1_clean[12:] + ". This is the highest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
 else:
-	message = "Linux Dev. second sensor test indoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ \n#CO2"
+	message = "Outdoor CO" + u"\u2082" + " at " + str(site_location) + ", " + line1_clean + ". Graphs and info at https://conwasa.github.io/CO2_play/ \n#CO2"
 
 #message = "Record low outdoor CO" + u"\u2082" + " at " + str(site_location) + ': 389ppm at 01:59 on Sunday 27 Jan 2019' + ". This is the lowest value recorded since 15th November 2018. Graphs and info at https://conwasa.github.io/CO2_play/ #CO2"
 

@@ -1,19 +1,19 @@
-wine /home/user1/SenselifeCamSoftware/CO2_Monitor.exe &
+wine /home/user2/SenselifeCamSoftware/CO2_Monitor.exe &
 while [ true ]; do
-	cat /home/user1/SenselifeCamSoftware/2018/11/*.CSV |grep "20" > all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2018/12/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/01/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/02/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/03/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/04/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/05/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/06/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/07/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/08/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/09/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/10/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/11/*.CSV |grep "20" >> all_readings.csv 
-	cat /home/user1/SenselifeCamSoftware/2019/12/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2018/11/*.CSV |grep "20" > all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2018/12/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/01/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/02/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/03/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/04/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/05/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/06/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/07/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/08/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/09/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/10/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/11/*.CSV |grep "20" >> all_readings.csv 
+	cat /home/user2/SenselifeCamSoftware/2019/12/*.CSV |grep "20" >> all_readings.csv 
 	# copy stats.json prev_stats.json
 	python3 process_csv.py	#python3 because uses list2 = list.copy()
 	python tweet.py
