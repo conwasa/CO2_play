@@ -301,7 +301,7 @@ google.setOnLoadCallback(drawVisualization)
 </script>
 </head>
 <body>
-<H1  class="medium_size" id="heading_H1">Outdoor CO<sub>2</sub> levels </H1>
+<H1  class="medium_size" id="heading_H1">Testbed CO<sub>2</sub> levels </H1>
 
 <div id="page_start" class="smaller"></div>
 <div class="page_orientation smaller"><span></span></div>
@@ -323,53 +323,9 @@ google.setOnLoadCallback(drawVisualization)
 <div id="dl_description"><a href="https://storage.googleapis.com/uk_bn3_co2_test/all_readings.csv">Download data</a></div>
 
 <h3>About</h3>
-Readings are taken every 10 minutes. 
-<p>Some of the data has structure. Why? The sensor is in a street of 1920s houses with one or two cars or vans per house. At the time of writing there are daily peaks in the morning and early evening. Its not the cars. Its winter and plant growth is stunted. Its cold outside.  
- <button onclick="showAnswer()" id="showButton">Click here for my answer</button>
 
-<div id="myAnswer">
-<h3>Why are there spikes in the data?</h3>
-  The houses were fitted with central heating boilers in the 1970s. The boilers vent through house walls at ground level and mostly run on timers to burn twice a day. That causes the spikes. 
-  The CO<sub>2</sub> blows away when its windy, resulting in periods without spikes. 
-</div> 
+<p>This is a development test system. The live outdoor page is here: <href a="https://conwasa.github.io/CO2_play/index.html">https://conwasa.github.io/CO2_play/index.html</a>
 
-<h3>Development Notes</h3>
-The hardware is a <a href="http://www.conwasa.demon.co.uk/SL/senselife/SenseLife_CAM_CO2_Monitor_description_and_specification.pdf"  target="_blank">consumer level indoor air quality meter</a>  (precision: ±75ppm + 5% of measured value) in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
-<p>
-Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by proprietary logging software into one file, which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
-The backend was developed on a Windows 7 laptop and ran there from November 2018 to February 2019, when it was moved to a stable "production" laptop running Linux Debian 9.
-
-<p>	
-Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using Handlebars. 
-A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2_test/"  target="_blank">storage.googleapis.com/uk_bn3_co2_test/</a> from Github was bypassed using bypasscors.herokuapp.com until it broken in November 2019, when it was replaced with 
-<a href="https://cors.x7.workers.dev/"  target="_blank">cors.x7.workers.dev</a>.  
-
-<p>
-Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_blank">github.com/conwasa/CO2_play</a>.  The scripts are:
-
-<p><ul>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/process_co2_data.bat"  target="_blank">process_CO2_data.bat</a>&nbsp;&nbsp;&nbsp;Windows/DOS script to copy files and run scripts every 10 minutes</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/process_csv.py" target="_blank">process_csv.py</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python script to create CSV files used by this HTML</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/tweet.py" target="_blank">tweet.py</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter Bot for this page</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/monitor_sensor_connection.py" target="_blank">monitor_sensor_connection.py</a>&nbsp;sounds an alarm if data older than 15 minutes</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/alarm.bat" target="_blank">alarm.bat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plays morse_CO2.mp3 in a loop</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/process_co2_data.sh"  target="_blank">process_co2_data.sh</a>&nbsp;&nbsp;&nbsp;&nbsp;shell script version</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/alarm.sh" target="_blank">alarm.sh</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</li>
-</ul>
-<a class="twitter-timeline" data-width="450" data-height="200" data-theme="dark" href="https://twitter.com/Bn3Co2?ref_src=twsrc%5Etfw">Tweets by Bn3Co2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<h3>To Do List</h3>
-<ul>
-<li>Add 5% error bars to the graphs</li>
-<li>Add calls to Telegram and Facebook APIs </li>
-<li>add CSS styling for the list of scripts</li>
-<li>Add 30 day moving average with graph</li> 
-<li>Replace historic graphs with graphic file equivalents created overnight</li> 
-<li>Add controls to page back and forth through the graphs, reduce their number</li>
-<li>Add local outdoor temperature logging</li>
-<li>Add a second CO&#8322 sensor  in the same enclosure to check precision</li>
-<li>Add traffic flow on the Old Shoreham Road, probably from Google Maps API</li>
-<li>Create microwave electrosmog version</li>
-</ul>
 <p>
 <div id="table_1"></div>
 
