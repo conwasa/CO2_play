@@ -305,7 +305,7 @@ google.setOnLoadCallback(drawVisualization)
 
 <div id="page_start" class="smaller"></div>
 <div class="page_orientation smaller"><span></span></div>
-<p>Some of the graphs will be broken until March 2021 following an outage from Aug 2020 to February 2021.  
+<p>Some graphs will be broken until March 2021 following an outage from Aug 2020 to February 2021.  
 <p>
 <div id="chart_1" class="chart"></div>
 
@@ -338,14 +338,14 @@ Readings are taken every 10 minutes.
 The hardware is a <a href="http://www.conwasa.demon.co.uk/SL/senselife/SenseLife_CAM_CO2_Monitor_description_and_specification.pdf"  target="_blank">consumer level indoor air quality meter</a>  (precision: ±75ppm + 5% of measured value) in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor is at ground level.
 <p>
 Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by proprietary logging software into one file, which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
-The backend was developed on a Windows 7 laptop and ran there from November 2018 to February 2019, when it was moved to a stable "production" laptop running Linux Debian 9.
+The backend was developed on a Windows 7 laptop and ran there from November 2018 to February 2019, when it was moved to a stable "production" laptop running Linux.
 
 <p>	
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using Handlebars. 
 A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2/"  target="_blank">storage.googleapis.com/uk_bn3_co2/</a> from Github was bypassed using unreliable CORS proxies until it was fixed properly in February 2021 this way:
 <a href="https://www.youtube.com/watch?v=bkyZ-GN1TlI"  target="_blank">www.youtube.com/watch?v=bkyZ-GN1TlI</a>.  
 
-<p>The outdoor sensor failed in August 2020, probably due to moisture working its way into the enclosure. It was found to be working in February 2021 and redeployed, with the enclosure on top of a flat roof at the back of the house, where it gets direct sunlight each morning.</p>
+<p>The outdoor sensor failed in August 2020, probably due to moisture working its way into the enclosure. It was found to be working in February 2021 and redeployed to a sunlit location (on a flat roof at the back of the house).</p>
 <p>
 Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_blank">github.com/conwasa/CO2_play</a>.  The scripts are:
 
