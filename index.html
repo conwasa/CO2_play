@@ -105,7 +105,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
 },"useData":true});
 })();
 	
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/todays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -125,7 +125,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_1.draw();
    });
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/yesterdays_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/yesterdays_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -145,7 +145,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_3.draw();
    });
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/day_befores_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/day_befores_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -165,7 +165,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_2.draw();
    });
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/last_weeks_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/last_weeks_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -185,7 +185,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_4.draw();
    });
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/week_before_lasts_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/week_before_lasts_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -206,7 +206,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
    });
 
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/last_months_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional 
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -227,7 +227,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
    });
 
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/all_historic_readings.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/all_historic_readings.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -247,7 +247,7 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
       chart_6.draw();
    });
 
-   $.get("https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/outages.csv", function(csvString) {
+   $.get("https://storage.googleapis.com/uk_bn3_co2/outages.csv", function(csvString) {
       // transform the CSV string into a 2-dimensional array
       var arrayData = $.csv.toArrays(csvString, {onParseValue: $.csv.hooks.castToScalar});
       // this new DataTable object holds all the data
@@ -267,8 +267,8 @@ templates['latest_co2_readings'] = template({"compiler":[7,">= 4.0.0"],"main":fu
    });
 
 	var ourRequest = new XMLHttpRequest();
-	var URL = 'https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/stats.json';
-  ourRequest.open('GET', 'https://cors-anywhere.herokuapp.com/https://storage.googleapis.com/uk_bn3_co2/stats.json');
+	var URL = 'https://storage.googleapis.com/uk_bn3_co2/stats.json';
+  ourRequest.open('GET', 'https://storage.googleapis.com/uk_bn3_co2/stats.json');
   ourRequest.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       // Action to be performed when the document is read;
@@ -342,7 +342,7 @@ The backend was developed on a Windows 7 laptop and ran there from November 2018
 <p>	
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using Handlebars. 
 A CORS problem accessing <a href="https://storage.googleapis.com/uk_bn3_co2/"  target="_blank">storage.googleapis.com/uk_bn3_co2/</a> from Github was bypassed using bypasscors.herokuapp.com until it broken in November 2019, when it was replaced with 
-<a href="https://cors-anywhere.herokuapp.com/"  target="_blank">cors-anywhere.herokuapp.com</a>.  
+<a href="sas"  target="_blank">cors-anywhere.herokuapp.com</a>.  
 
 <p>
 Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_blank">github.com/conwasa/CO2_play</a>.  The scripts are:
