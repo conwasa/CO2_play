@@ -335,10 +335,10 @@ Readings are taken every 10 minutes.
 </div> 
 
 <h3>Development Notes</h3>
-The hardware is a <a href="http://www.conwasa.demon.co.uk/SL/senselife/SenseLife_CAM_CO2_Monitor_description_and_specification.pdf"  target="_blank">consumer level indoor air quality meter</a>  (precision: ±75ppm + 5% of measured value) in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor was at ground level until August 2020 and at aheight of 12 feet from February 2021.
+The hardware is a <a href="http://www.conwasa.demon.co.uk/SL/senselife/SenseLife_CAM_CO2_Monitor_description_and_specification.pdf"  target="_blank">consumer level indoor air quality meter</a>  (precision: ±75ppm + 5% of measured value) in a weatherproof enclosure connected to a laptop via a 30ft (10m) USB extension cable. The sensor was at ground level until August 2020 and at a height of 12 feet from February 2021.
 <p>
 Back-end: Every 10 minutes, a batch file copies daily CSV files, produced by proprietary logging software into one file, which is processed to produce one CSV file for each graph. The CSV files are copied to a publicly visible Cloud Storage bucket. 
-The backend was developed on a Windows 7 laptop and ran there from November 2018 to February 2019, when it was moved to a stable "production" laptop running Linux.
+The backend was developed on a Windows 7 laptop and ran there from November 2018 to February 2019, when it was moved to a stable "production" laptop running Linux, with a view to moving to a dedicated Raspberry Pi.
 
 <p>	
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using Handlebars. 
