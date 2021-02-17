@@ -307,7 +307,7 @@ google.setOnLoadCallback(drawVisualization)
 
 <div id="page_start" class="smaller"></div>
 <div class="page_orientation smaller"><span></span></div>
-<p>Some graphs will be broken until March 2021 following an outage from Aug 2020 to February 2021.  
+<p>Some graphs will be broken until March 2021 following an outage from Aug 2020 to February 2021.  We now have a Telegram bot: <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a>.
 <p>
 <div id="chart_1" class="chart"></div>
 
@@ -345,9 +345,11 @@ The backend was developed on a Windows 7 laptop and ran there from November 2018
 <p>	
 Front-end: The graphs and the outages table (below) are rendered with Google's Visualisation API, Statistics and the sensor's location (<span id="sensor_location"></span>) are rendered using Handlebars. 
 
-<p></p>
-The project was revisited February 2021: Use of unreliable CORS proxies to access Google Cloud Storage from Github was replaced by setting GCS headers this way:
-<a href="https://www.youtube.com/watch?v=bkyZ-GN1TlI"  target="_blank">www.youtube.com/watch?v=bkyZ-GN1TlI</a>. A Telegram bot <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a> is in progress and caching problems are being addressed with html meta tags and GCS headers.
+<h3>The project was revisited February 2021</h3>
+Use of CORS proxies to access Google Cloud Storage (GCS) from Github was replaced by setting GCS headers this way:
+<a href="https://www.youtube.com/watch?v=bkyZ-GN1TlI"  target="_blank">www.youtube.com/watch?v=bkyZ-GN1TlI</a>. Html caching of real-time data was addressed with html meta tags and GCS headers.
+<p>A Telegram chatbot <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a> was written using <a href="https://python-telegram-bot.org/"  target="_blank">python-telegram-bot.org</a>.
+It offers subscriptions to real-time data sets. An intermitent network connection error was fixed by applying the edit to telegram\utils\request.py mentioned here:<a href="https://github.com/python-telegram-bot/python-telegram-bot/issues/1773"  target="_blank">#1773</a>. 
 
 <p>
 Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_blank">github.com/conwasa/CO2_play</a>.  The scripts are:
@@ -360,13 +362,14 @@ Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_bla
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/alarm.bat" target="_blank">alarm.bat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plays morse_CO2.mp3 in a loop</li>
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/process_co2_data.sh"  target="_blank">process_co2_data.sh</a>&nbsp;&nbsp;&nbsp;&nbsp;shell script version</li>
 <li><a href="https://github.com/conwasa/CO2_play/blob/master/alarm.sh" target="_blank">alarm.sh</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</li>
-<li><a href="https://github.com/conwasa/CO2_play/blob/master/telegram_bot.py" target="_blank">telegram_bot.py</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telegram Bot for this page</li>
+<li><a href="https://github.com/conwasa/CO2_play/blob/master/telegram_bot.py" target="_blank">telegram_bot.py</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telegram Bot for this page</li>
 </ul>
 <a class="twitter-timeline" data-width="450" data-height="200" data-theme="dark" href="https://twitter.com/Bn3Co2?ref_src=twsrc%5Etfw">Tweets by Bn3Co2</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<a class="twitter-bot" data-width="108" data-height="222" data-theme="dark" href="telegram_bot.jpg"><img src="telegram_bot2.jpg" alt="screen shot of telegram bot" style="width:411;height:200;border-radius:8px;" ></a>
 <h3>To Do List</h3>
 <ul>
 <li>Add 5% error bars to the graphs</li>
-<li>Add calls to Telegram and Facebook APIs. Telegram work in progress February 2021: <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a> </li>
+<li>Add calls to Telegram and Facebook APIs. Completed February 2021: <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a> </li>
 <li>add CSS styling for the list of scripts</li>
 <li>Add 30 day moving average with graph</li> 
 <li>Replace historic graphs with graphic file equivalents created overnight</li> 
