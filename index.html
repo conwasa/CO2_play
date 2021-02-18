@@ -54,9 +54,9 @@ Body { 	font-family: "Lucida Console", Monaco, monospace;
  <title>UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm</title>
  <meta name="description" content="UK BN3 CO2 montioring station Real-time Outdoor CO2 ppm">
  
-<!--- <script src="handlebars-v4.0.11.js"></script> -->
- 
-<script src="handlebars.runtime-v4.0.12.js"></script>
+<!-- <script src="handlebars-v4.0.11.js"></script> -->
+<!-- !script src="handlebars.runtime-v4.0.12.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
  
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
  <script src="jquery.csv.min.js"></script>
@@ -304,7 +304,6 @@ google.setOnLoadCallback(drawVisualization)
 </head>
 <body>
 <H1  class="medium_size" id="heading_H1">Outdoor CO<sub>2</sub> levels </H1>
-
 <div id="page_start" class="smaller"></div>
 <div class="page_orientation smaller"><span></span></div>
 <p>Some graphs will be broken until March 2021 following an outage from Aug 2020 to February 2021.  We now have a Telegram bot: <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a>.
@@ -349,7 +348,7 @@ Front-end: The graphs and the outages table (below) are rendered with Google's V
 Use of CORS proxies to access Google Cloud Storage (GCS) from Github was replaced by setting GCS headers this way:
 <a href="https://www.youtube.com/watch?v=bkyZ-GN1TlI"  target="_blank">www.youtube.com/watch?v=bkyZ-GN1TlI</a>. Html caching of real-time data was addressed with html meta tags and GCS headers.
 <p>A Telegram chatbot <a href="https://t.me/uk_bn3_co2"  target="_blank">t.me/uk_bn3_co2</a> was written using <a href="https://python-telegram-bot.org/"  target="_blank">python-telegram-bot.org</a>.
-It offers subscriptions to real-time data sets. An intermitent network connection error was fixed by applying the edit to telegram\utils\request.py mentioned here:<a href="https://github.com/python-telegram-bot/python-telegram-bot/issues/1773"  target="_blank">#1773</a>. 
+It offers subscriptions to real-time data sets. An intermitent network connection error was fixed by applying the edit to telegram\utils\request.py mentioned here:<a href="https://github.com/python-telegram-bot/python-telegram-bot/issues/1773"  target="_blank">#1773</a>. Handlebars was upgraded 4.0 --> 4.3 as Github flagged a vunerability.
 
 <p>
 Source code is here: <a href="https://github.com/conwasa/CO2_play"  target="_blank">github.com/conwasa/CO2_play</a>.  The scripts are:
